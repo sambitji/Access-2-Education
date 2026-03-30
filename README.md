@@ -2,24 +2,52 @@
 AI-powered education platform designed to improve learning outcomes and accessibility by combining personalized instruction, data-driven performance analysis, and human–AI collaboration to support social and economic development.
 <div align="center">
 
+<br/>
+
 # 🎓 EduPlatform
+
 ### AI-Powered Personalized Learning System
+
+<br/>
 
 [![Python](https://img.shields.io/badge/Python-3.11+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![React](https://img.shields.io/badge/React-18.3-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org)
 [![MongoDB](https://img.shields.io/badge/MongoDB-7.0-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://mongodb.com)
 [![scikit-learn](https://img.shields.io/badge/scikit--learn-1.4-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)](LICENSE)
 
-> **Student ka aptitude test lo → ML model learning style detect kare → Personalized content recommend karo**
+<br/>
 
-[Features](#-features) • [Architecture](#-architecture) • [Setup](#-setup) • [API Docs](#-api-documentation) • [ML Pipeline](#-ml-pipeline) • [Screenshots](#-screenshots)
+> **"Har student alag hota hai — toh content bhi alag hona chahiye."**
+>
+> EduPlatform ek AI-powered education system hai jo pehle har student ka aptitude test leta hai,
+> phir Machine Learning se uski **learning style detect** karta hai,
+> aur uske hisaab se **personalized content recommend** karta hai.
+
+<br/>
+
+[🚀 Features](#-features) &nbsp;·&nbsp;
+[🏗️ Architecture](#️-architecture) &nbsp;·&nbsp;
+[🤖 ML Pipeline](#-ml-pipeline) &nbsp;·&nbsp;
+[⚙️ Setup](#️-setup) &nbsp;·&nbsp;
+[📡 API Docs](#-api-documentation) &nbsp;·&nbsp;
+[🗺️ User Flow](#️-user-flow)
+
+<br/>
+
+</div>
 
 ---
 
-![EduPlatform Banner](https://via.placeholder.com/900x300/0f172a/6366f1?text=EduPlatform+%7C+AI+Powered+Learning)
+## 🎯 Problem Statement
 
-</div>
+Traditional education ka ek bada problem hai — **ek hi teaching style sabke liye kaam nahi karti.** Koi student diagram se jaldi samajhta hai, koi theory padhke, koi practice karke. EduPlatform is problem ko solve karta hai by:
+
+1. **Measure** karna — 25-question aptitude test se student ki cognitive strengths pata karna
+2. **Classify** karna — Machine Learning se 4 learning styles mein cluster karna
+3. **Personalize** karna — Har student ke liye different content types recommend karna
+4. **Assist** karna — AI chatbot se lecture summarize aur doubts clear karna
 
 ---
 
@@ -27,121 +55,253 @@ AI-powered education platform designed to improve learning outcomes and accessib
 
 | Feature | Description |
 |---|---|
-| 🧠 **Aptitude Test** | 25 questions, 5 sections, 30 minutes — logical, verbal, numerical, memory, attention |
-| 🤖 **ML Clustering** | Voting Ensemble (GB + SVM + LR) — **93.3% CV accuracy** — 4 learning styles |
-| 🎯 **Personalized Recommendations** | Style ke hisaab se content score karta hai (0-100) |
-| 💬 **AI Chatbot** | DeepSeek-powered lecture summarizer + Q&A |
-| 📊 **Progress Tracking** | Subject-wise completion aur visual charts |
-| 🔐 **JWT Auth** | Dual token (access 30min + refresh 7 days) + OTP password reset |
+| 🧠 **Aptitude Test** | 25 questions · 5 cognitive sections · 30 min timer · Auto-scored |
+| 🤖 **ML Clustering** | Voting Ensemble (GB + SVM + LR) — **93.3% CV Accuracy** |
+| 🎯 **Smart Recommendations** | 0–100 scoring engine — type + tags + difficulty progression |
+| 💬 **AI Chatbot** | DeepSeek-powered lecture summarizer + Q&A assistant |
+| 📊 **Progress Dashboard** | Subject-wise charts, completion tracking, recent activity |
+| 🔐 **Secure Auth** | JWT dual-token system + OTP-based password reset |
 
 ---
 
 ## 🏗️ Architecture
 
 ```
+┌─────────────────────────────────────────────────────────────────┐
+│                         EduPlatform                             │
+│                                                                 │
+│  ┌──────────────┐    ┌──────────────┐    ┌───────────────────┐ │
+│  │   Frontend   │    │   Backend    │    │   ML Pipeline     │ │
+│  │  React + Vite│◄──►│   FastAPI    │◄──►│  scikit-learn     │ │
+│  │  Tailwind CSS│    │   Motor      │    │  Voting Ensemble  │ │
+│  │  Zustand     │    │   PyJWT      │    │  KMeans fallback  │ │
+│  └──────────────┘    └──────┬───────┘    └───────────────────┘ │
+│                             │                                   │
+│                      ┌──────▼───────┐                          │
+│                      │   MongoDB    │                          │
+│                      │  5 collections│                          │
+│                      └──────────────┘                          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Project Structure
+
+```
 edu-platform/
 │
-├── 🤖 ml/                          # Machine Learning Pipeline
+├── 🤖 ml/
 │   ├── notebooks/
-│   │   ├── 01_data_exploration.ipynb
-│   │   ├── 02_clustering.ipynb
-│   │   └── 03_recommendation.ipynb
-│   ├── models/                     # Trained model files (.pkl)
-│   ├── train_model.py              # Ensemble model train karo
-│   ├── predict_cluster.py          # Prediction engine (3-tier fallback)
-│   └── recommender.py              # Content recommendation engine
+│   │   ├── 01_data_exploration.ipynb    # EDA + distributions + outlier detection
+│   │   ├── 02_clustering.ipynb          # K-Means + PCA visualization + elbow method
+│   │   └── 03_recommendation.ipynb      # Scoring engine + heatmaps + end-to-end test
+│   ├── models/                          # Trained .pkl files (git-ignored)
+│   ├── train_model.py                   # Voting Ensemble training script
+│   ├── predict_cluster.py               # 3-tier prediction (Ensemble → KMeans → Rules)
+│   └── recommender.py                   # Content recommendation engine class
 │
-├── ⚙️ backend/                     # FastAPI Server
+├── ⚙️ backend/
 │   ├── routes/
-│   │   ├── auth.py                 # Login, Register, JWT, OTP
-│   │   ├── test.py                 # Aptitude test + ML prediction
-│   │   └── content.py              # Recommendations + Progress
+│   │   ├── auth.py                      # Register, Login, JWT, OTP password reset
+│   │   ├── test.py                      # Aptitude test + ML cluster prediction
+│   │   └── content.py                   # Recommendations, progress, ratings
 │   ├── models/
-│   │   ├── user.py
-│   │   ├── result.py
-│   │   └── content.py
-│   ├── database/db.py              # MongoDB + Indexes
-│   ├── config.py                   # Centralized settings
-│   └── main.py                     # FastAPI entry point
+│   │   ├── user.py                      # Pydantic user schemas + validators
+│   │   ├── result.py                    # Test result schemas
+│   │   └── content.py                   # Content + progress schemas
+│   ├── database/db.py                   # MongoDB connection + indexes
+│   ├── config.py                        # Pydantic-settings centralized config
+│   └── main.py                          # FastAPI app + CORS + lifespan
 │
-├── 🎨 frontend/                    # React + Vite + Tailwind
-│   └── src/
-│       ├── pages/                  # Home, Login, Register, Test, Dashboard, Learn, Progress
-│       ├── components/
-│       │   ├── AptitudeTest/       # Test UI + QuestionCard
-│       │   ├── Dashboard/          # StudentDashboard + ProgressChart
-│       │   ├── Chatbot/            # ChatWindow + MessageBubble
-│       │   └── Lecture/            # LecturePlayer + SummaryPanel
-│       ├── store/authStore.js      # Zustand global state
-│       └── services/api.js         # Axios + auto token refresh
+├── 🎨 frontend/src/
+│   ├── pages/
+│   │   ├── Home.jsx                     # Landing page
+│   │   ├── Login.jsx / Register.jsx     # Auth forms
+│   │   ├── TestPage.jsx                 # Aptitude test flow
+│   │   ├── TestResult.jsx               # Results + radar chart + confidence
+│   │   ├── Dashboard.jsx                # Personalized student dashboard
+│   │   ├── LearnPage.jsx                # Content library + detail view
+│   │   └── Progress.jsx                 # Progress tracking
+│   ├── components/
+│   │   ├── AptitudeTest/                # Test UI + QuestionCard
+│   │   ├── Dashboard/                   # StudentDashboard + ProgressChart (Recharts)
+│   │   ├── Chatbot/                     # ChatWindow + MessageBubble (react-markdown)
+│   │   └── Lecture/                     # LecturePlayer + SummaryPanel
+│   ├── store/authStore.js               # Zustand global state
+│   └── services/api.js                  # Axios + automatic JWT refresh
 │
 └── 📦 data/
-    ├── student_aptitude_dataset.csv  # 10,000 student records
-    └── content_metadata.json         # 44 content items
+    ├── student_aptitude_dataset.csv      # 10,000 synthetic student records
+    └── content_metadata.json            # 44 content items (6 subjects × 7 types)
 ```
 
 ---
 
 ## 🤖 ML Pipeline
 
-### Learning Styles (4 Clusters)
+### Learning Style Clusters
 
-| Style | Emoji | Dominant Feature | Best Content |
+| Cluster | Style | Key Traits | Recommended Content |
 |---|---|---|---|
-| Visual Learner | 👁️ | High Verbal + Memory | Videos, Infographics |
-| Conceptual Thinker | 🧠 | High Logical | Articles, Case Studies |
-| Practice-Based | ⚙️ | High Numerical + Attention | Exercises, Projects |
-| Step-by-Step | 📋 | High Memory | Notes, Tutorials |
+| 0 | 👁️ Visual Learner | High verbal + memory | Videos, Infographics |
+| 1 | 🧠 Conceptual Thinker | High logical | Articles, Case Studies |
+| 2 | ⚙️ Practice-Based | High numerical + attention | Exercises, Projects |
+| 3 | 📋 Step-by-Step | High memory | Notes, Tutorials |
 
-### Model Performance
+### Dataset
+
+| Property | Value |
+|---|---|
+| Total records | 10,000 students |
+| Features | logical, verbal, numerical, memory, attention (0–100) |
+| Class distribution | 26% Visual · 22% Conceptual · 28% Practice · 24% Step-by-Step |
+| Generated via | Controlled Gaussian distributions per learning style |
+
+### Model Selection
 
 ```
-Model Comparison (5-fold CV):
-──────────────────────────────────────────────
-Voting Ensemble (GB+SVM+LR)  : 93.3% ± 0.6%  ✅ USED
-SVM (rbf)                    : 93.4% ± 0.3%
-Gradient Boosting            : 93.2% ± 0.3%
-Logistic Regression          : 93.1% ± 0.3%
-KMeans (unsupervised)        : 92.0%
-──────────────────────────────────────────────
+Classifier              CV Accuracy    Notes
+─────────────────────────────────────────────────────
+Voting Ensemble ✅      93.3% ± 0.6%  GB + SVM + LR  ← USED
+SVM (rbf, C=10)         93.4% ± 0.3%  Best single model
+Gradient Boosting        93.2% ± 0.3%  150 estimators
+Logistic Regression      93.1% ± 0.3%  Stable baseline
+KNN (k=5)               92.2% ± 0.5%
+KMeans (unsupervised)    92.0%         No label info used
+─────────────────────────────────────────────────────
+```
 
-Feature Importance:
-  numerical  : 30.1%  ████████████████
-  logical    : 21.1%  ██████████
-  verbal     : 20.1%  ██████████
-  memory     : 18.3%  █████████
-  attention  : 10.4%  █████
+> **Why Voting Ensemble?** Single best model (SVM) aur Voting Ensemble ki accuracy almost same hai,
+> but ensemble zyada **robust** hai — kisi ek model ke edge cases dusra model cover kar leta hai.
+> Production mein stability > marginal accuracy gain.
+
+### Feature Importance
+
+```
+numerical   30.1%  ████████████████
+logical     21.1%  ██████████
+verbal      20.1%  ██████████
+memory      18.3%  █████████
+attention   10.4%  █████
 ```
 
 ### Prediction Fallback Chain
+
 ```
-Ensemble Classifier (93.3%)
-        ↓ (if model not found)
-KMeans Clustering (92.0%)
-        ↓ (if no models at all)
-Rule-Based (dominant feature)
+1️⃣  Voting Ensemble Classifier  (93.3% accuracy)
+         ↓ if model files not found
+2️⃣  KMeans Clustering          (92.0% accuracy)
+         ↓ if no models at all
+3️⃣  Rule-Based (dominant feature → style mapping)
+```
+
+### Recommendation Scoring (0–100 points)
+
+```
+Content Type Match (preferred)  →  50 pts
+Tag Boost Match (per tag, max 3) →  30 pts
+Difficulty Progression          →  20 pts
+Already Completed               →   0 pts  (skip)
+```
+
+Difficulty progression adapts automatically:
+- 0 completions → prefer difficulty 1
+- 3–7 completions → prefer difficulty 2
+- 8+ completions → prefer difficulty 3–4
+
+---
+
+## 🗺️ User Flow
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                                                             │
+│   Register / Login                                          │
+│         │                                                   │
+│         ▼                                                   │
+│   Aptitude Test  ──────────────────────────────────────┐   │
+│   25 questions · 5 sections · 30 min timer             │   │
+│         │                                               │   │
+│         ▼                                               │   │
+│   ML Prediction (Voting Ensemble — 93.3% accuracy)     │   │
+│         │                                               │   │
+│    ┌────┴─────────────────────────┐                     │   │
+│    │                              │                     │   │
+│   👁️ Visual Learner         🧠 Conceptual             │   │
+│   → Videos, Infographics     → Articles, Theory        │   │
+│                                                         │   │
+│   ⚙️ Practice-Based         📋 Step-by-Step            │   │
+│   → Exercises, Projects     → Notes, Tutorials         │   │
+│    └─────────────────────────────┘                     │   │
+│         │                                               │   │
+│         ▼                                               │   │
+│   Personalized Dashboard                                │   │
+│         │                                               │   │
+│    ┌────▼─────────────┐                                 │   │
+│    │  Learn Content   │ ◄── AI Chatbot (DeepSeek)       │   │
+│    │  Mark Complete   │     Summary + Q&A               │   │
+│    │  Rate (1-5 ⭐)   │                                  │   │
+│    └────┬─────────────┘                                 │   │
+│         │                                               │   │
+│         ▼                                               │   │
+│   Progress Tracking                                     │   │
+│   Subject-wise charts                                   │   │
+│         │                                               │   │
+│         ▼                                               │   │
+│   Re-Test after 30 days ────────────────────────────────┘   │
+│   (Re-clustering — style may change with progress)          │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🚀 Setup
+## 📊 Database Schema
+
+```
+users
+├── _id, name, email, password_hash (bcrypt)
+├── role: "student" | "teacher"
+├── learning_style, cluster_id        ← Set after aptitude test
+├── total_completed, last_test_date
+└── needs_recluster, joined_at, last_login
+
+test_results
+├── user_id, attempt_number
+├── scores: { logical, verbal, numerical, memory, attention, total }
+├── cluster_id, learning_style, confidence
+├── correct_answers (out of 25), total_marks (out of 500)
+└── per_question: [...], submitted_at, ml_mode
+
+progress
+├── user_id, content_id
+├── subject, content_type, difficulty
+├── completed, completed_at, time_spent_min, notes
+└── rating (1–5), comment, rated_at
+
+refresh_tokens   →  user_id, token, expires_at (TTL index: 7 days)
+otps             →  email, otp, expires_at (TTL index: 10 min), used
+```
+
+---
+
+## ⚙️ Setup
 
 ### Prerequisites
 
-```bash
-Node.js >= 18.0
-Python >= 3.11
-MongoDB >= 7.0
+```
+Python  ≥ 3.11
+Node.js ≥ 18.0
+MongoDB ≥ 7.0
 ```
 
-### Step 1 — Clone karo
+### 1. Clone
 
 ```bash
 git clone https://github.com/YOUR_USERNAME/edu-platform.git
 cd edu-platform
 ```
 
-### Step 2 — ML Models Train Karo *(pehle ye karo)*
+### 2. Train ML Models *(do this first)*
 
 ```bash
 cd ml
@@ -149,307 +309,119 @@ pip install -r requirements.txt
 python train_model.py
 ```
 
-Output:
+Expected output:
 ```
-✅ Dataset loaded: data/student_aptitude_dataset.csv
-   Rows: 10000
+✅ Dataset loaded: data/student_aptitude_dataset.csv (10,000 rows)
 CV Accuracy: 0.9330 ± 0.0062
-✅ classifier.pkl
-✅ scaler.pkl
-✅ label_encoder.pkl
-✅ kmeans_model.pkl
-✅ cluster_map.pkl
-🎉 Training Complete! CV Accuracy: 0.9330
+✅ classifier.pkl · scaler.pkl · label_encoder.pkl · kmeans_model.pkl
+🎉 Training Complete!
 ```
 
-### Step 3 — Backend Setup
+### 3. Backend
 
 ```bash
 cd backend
-
-# Virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate        # Windows: venv\Scripts\activate
-
+python -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-
-# Environment variables setup
-cp .env.example .env
-# .env mein apni values bharo (neeche dekho)
+cp .env.example .env        # Fill in your values
+mongod                      # Start MongoDB
+uvicorn main:app --reload
 ```
 
-**`backend/.env`:**
-```env
-MONGODB_URL=mongodb://localhost:27017
-DATABASE_NAME=edu_platform
-SECRET_KEY=<run: python -c "import secrets; print(secrets.token_hex(32))">
-REFRESH_SECRET_KEY=<run again for different key>
-DEEPSEEK_API_KEY=your-deepseek-api-key
-```
+API → `http://localhost:8000`
+Swagger → `http://localhost:8000/docs`
 
-```bash
-# MongoDB start karo (local)
-mongod
-
-# Server start karo
-uvicorn main:app --reload --port 8000
-```
-
-✅ API: `http://localhost:8000`
-✅ Swagger Docs: `http://localhost:8000/docs`
-
-### Step 4 — Frontend Setup
+### 4. Frontend
 
 ```bash
 cd frontend
 npm install
-
-# Environment setup
-cp .env.example .env
-# .env mein: VITE_API_URL=http://localhost:8000
-
+cp .env.example .env        # VITE_API_URL=http://localhost:8000
 npm run dev
 ```
 
-✅ App: `http://localhost:5173`
+App → `http://localhost:5173`
 
 ---
 
 ## 📡 API Documentation
 
-### Auth Endpoints
+### Auth
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/auth/register` | New account banao |
-| `POST` | `/auth/login` | Login — JWT tokens milenge |
-| `POST` | `/auth/refresh` | Access token refresh karo |
-| `POST` | `/auth/logout` | Logout — token invalidate |
-| `GET` | `/auth/me` | Apna profile dekho |
-| `PUT` | `/auth/me` | Profile update karo |
+| `POST` | `/auth/register` | Register — JWT tokens milenge |
+| `POST` | `/auth/login` | Login — access + refresh token |
+| `POST` | `/auth/refresh` | Access token refresh (30 min) |
+| `POST` | `/auth/logout` | Logout — token revoke |
+| `GET` | `/auth/me` | Profile dekho |
+| `PUT` | `/auth/me` | Profile update |
 | `POST` | `/auth/forgot-password` | OTP email pe bhejo |
 | `POST` | `/auth/reset-password` | OTP se password reset |
 
-### Test Endpoints
+### Test
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/test/questions` | 25 questions fetch karo |
-| `POST` | `/test/submit` | Answers submit → ML predict |
-| `GET` | `/test/result` | Latest result dekho |
-| `GET` | `/test/history` | Saare attempts ki history |
-| `POST` | `/test/retake` | 30 din baad retake |
-| `GET` | `/test/model-info` | ML model ki info |
+| `GET` | `/test/questions` | 25 questions (correct answers hidden) |
+| `POST` | `/test/submit` | Submit → ML predict → style assign |
+| `GET` | `/test/result` | Latest result + confidence score |
+| `GET` | `/test/history` | Saare attempts |
+| `POST` | `/test/retake` | 30-day cooldown ke baad |
+| `GET` | `/test/model-info` | ML model version + accuracy |
 
-### Content Endpoints
+### Content
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `GET` | `/content/recommendations` | Personalized recommendations |
-| `GET` | `/content/all` | Saara content (filters) |
-| `GET` | `/content/search?q=` | Search karo |
-| `GET` | `/content/subjects` | Subjects list |
-| `GET` | `/content/progress` | Learning progress |
-| `POST` | `/content/complete/{id}` | Content complete mark karo |
-| `POST` | `/content/rate/{id}` | Rating do |
-
----
-
-## 🔐 API Keys Ko Safe Rakhna
-
-### Step 1 — `.env` files kabhi push mat karo
-
-`.gitignore` mein ye lines hain:
-```
-backend/.env
-frontend/.env
-.env.local
-*.secret
-```
-
-### Step 2 — Keys already push ho gayi hain?
-
-```bash
-# History se hata do
-git filter-branch --force --index-filter \
-  'git rm --cached --ignore-unmatch backend/.env' \
-  --prune-empty --tag-name-filter cat -- --all
-
-# Force push
-git push origin --force --all
-```
-
-### Step 3 — `.env.example` files commit karo *(without real values)*
-
-```bash
-git add backend/.env.example
-git add frontend/.env.example
-git commit -m "Add env examples"
-```
-
-### Step 4 — Keys rotate karo *(if they were exposed)*
-
-```bash
-# Naya SECRET_KEY generate karo
-python -c "import secrets; print(secrets.token_hex(32))"
-
-# DeepSeek: platform.deepseek.com → API Keys → Regenerate
-# MongoDB Atlas: Security → Database Access → Edit → Update Password
-```
-
----
-
-## 🗂️ Environment Variables Reference
-
-### Backend (`backend/.env`)
-
-| Variable | Required | Description |
-|---|---|---|
-| `MONGODB_URL` | ✅ | MongoDB connection string |
-| `DATABASE_NAME` | ✅ | Database ka naam |
-| `SECRET_KEY` | ✅ | JWT signing key (min 32 chars) |
-| `REFRESH_SECRET_KEY` | ✅ | Refresh token key (different from above) |
-| `DEEPSEEK_API_KEY` | ✅ | DeepSeek chatbot ke liye |
-| `DEBUG` | ❌ | `True` dev mein, `False` production mein |
-| `ML_MODELS_PATH` | ❌ | Default: `../ml/models` |
-| `RETEST_COOLDOWN_DAYS` | ❌ | Default: `30` |
-| `EMAIL_ENABLED` | ❌ | `False` (OTP console pe print hoga) |
-
-### Frontend (`frontend/.env`)
-
-| Variable | Required | Description |
-|---|---|---|
-| `VITE_API_URL` | ✅ | Backend URL — `http://localhost:8000` |
+| `GET` | `/content/recommendations` | Personalized list (filtered + scored) |
+| `GET` | `/content/all` | Full library (subject/type/difficulty filter) |
+| `GET` | `/content/search?q=` | Full-text search |
+| `GET` | `/content/subjects` | Subject list + counts |
+| `GET` | `/content/progress` | Learning progress + subject breakdown |
+| `POST` | `/content/complete/{id}` | Mark complete + time tracking |
+| `POST` | `/content/rate/{id}` | 1–5 star rating |
 
 ---
 
 ## 🛠️ Tech Stack
 
 ### ML
-- **scikit-learn** — VotingClassifier, KMeans, StandardScaler
-- **pandas / numpy** — Data processing
-- **matplotlib / seaborn** — Visualization
+`scikit-learn` · `pandas` · `numpy` · `scipy` · `matplotlib` · `seaborn`
 
 ### Backend
-- **FastAPI** — Async REST API
-- **Motor** — Async MongoDB driver
-- **python-jose** — JWT authentication
-- **passlib[bcrypt]** — Password hashing
-- **httpx** — DeepSeek API calls
-- **pydantic-settings** — Config management
+`FastAPI` · `Motor (async MongoDB)` · `python-jose (JWT)` · `passlib[bcrypt]` · `pydantic-settings` · `httpx`
 
 ### Frontend
-- **React 18** + **Vite** — Fast build tool
-- **Tailwind CSS** — Utility-first styling
-- **Zustand** — Lightweight state management
-- **Axios** — HTTP client + auto token refresh
-- **Recharts** — Charts aur graphs
-- **React Router v6** — Client-side routing
-- **react-markdown** — Chatbot response rendering
-- **react-hot-toast** — Notifications
+`React 18` · `Vite` · `Tailwind CSS` · `Zustand` · `Axios` · `Recharts` · `React Router v6` · `react-markdown` · `react-hot-toast` · `framer-motion`
 
 ### Database
-- **MongoDB** — Flexible document storage
-- **Collections**: `users`, `test_results`, `progress`, `refresh_tokens`, `otps`
-
----
-
-## 📊 Database Schema
-
-```
-users {
-  _id, name, email, password_hash, role,
-  learning_style, cluster_id,           ← Set after aptitude test
-  total_completed, last_test_date,
-  needs_recluster, joined_at, last_login
-}
-
-test_results {
-  user_id, attempt_number,
-  scores: { logical, verbal, numerical, memory, attention, total },
-  cluster_id, learning_style, confidence,
-  correct_answers, total_marks,
-  per_question: [...], submitted_at
-}
-
-progress {
-  user_id, content_id, subject,
-  completed, completed_at,
-  time_spent_min, notes,
-  rating, comment, rated_at
-}
-```
-
----
-
-## 🗺️ User Flow
-
-```
-Register
-   │
-   ▼
-Aptitude Test (25 questions)
-   │
-   ▼
-ML Model Predicts Learning Style
-(Voting Ensemble — 93.3% accuracy)
-   │
-   ├──► visual_learner     → Videos + Infographics
-   ├──► conceptual_thinker → Articles + Case Studies
-   ├──► practice_based     → Exercises + Projects
-   └──► step_by_step       → Notes + Tutorials
-         │
-         ▼
-    Personalized Dashboard
-         │
-         ▼
-    Learn Content
-         │
-    AI Chatbot (DeepSeek) → Summary + Q&A
-         │
-         ▼
-    Mark Complete + Rate
-         │
-         ▼
-    Progress Tracking
-         │
-         ▼
-    Re-Test after 30 days → Re-clustering
-```
+`MongoDB 7.0` — Collections: `users` · `test_results` · `progress` · `refresh_tokens` · `otps`
 
 ---
 
 ## 🤝 Contributing
 
 ```bash
-# Fork karo aur clone karo
-git clone https://github.com/YOUR_USERNAME/edu-platform.git
-
-# Branch banao
-git checkout -b feature/your-feature-name
-
-# Changes karo aur commit karo
-git add .
+git checkout -b feature/your-feature
 git commit -m "feat: add your feature"
-
-# Push karo
-git push origin feature/your-feature-name
-
-# Pull Request create karo
+git push origin feature/your-feature
+# Open Pull Request
 ```
 
 ---
 
 ## 📄 License
 
-MIT License — freely use, modify, and distribute.
+[MIT](LICENSE) — freely use, modify, and distribute.
 
 ---
 
 <div align="center">
+<br/>
 
-Made with ❤️ | React + FastAPI + scikit-learn + MongoDB
+Built with ❤️ using **React · FastAPI · scikit-learn · MongoDB**
 
-⭐ Star karo agar helpful laga!
+⭐ **Star karo agar helpful laga!**
 
 </div>
