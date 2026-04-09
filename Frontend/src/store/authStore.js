@@ -33,8 +33,14 @@ const useAuthStore = create((set) => ({
     set({ user: null });
   },
 
-  setLearningStyle: (learning_style) =>
-    set((state) => ({ user: state.user ? { ...state.user, learning_style } : null })),
+  setLearningStyle: (learning_style, cluster_id) =>
+    set((state) => {
+      const user = state.user ? { ...state.user, learning_style } : null;
+      if (user) {
+        localStorage.setItem(STORAGE_KEYS.user, JSON.stringify(user));
+      }
+      return { user };
+    }),
 }));
 
 export default useAuthStore;

@@ -10,19 +10,23 @@
 // =============================================================
 
 import axios from "axios";
+import demoApi from "./demoApi";
 
 const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === "true";
 
-// ── Axios Instance ────────────────────────────────────────────
-const api = axios.create({
-  baseURL:        BASE_URL,
-  timeout:        10000,
-  headers: { "Content-Type": "application/json" },
-});
+// ── Demo fallback for Netlify / offline deployment ─────────────
+const api = DEMO_MODE
+  ? demoApi
+  : axios.create({
+      baseURL: BASE_URL,
+      timeout: 10000,
+      headers: { "Content-Type": "application/json" },
+    });
 
-
-// ── Request Interceptor — Token attach karo ──────────────────
-api.interceptors.request.use(
+if (!DEMO_MODE) {
+  // ── Request Interceptor — Token attach karo ──────────────────
+  api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("access_token");
     if (token) {
@@ -99,6 +103,7 @@ api.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+}
 
 function _forceLogout() {
   localStorage.removeItem("access_token");

@@ -42,7 +42,7 @@ def load_data():
     CSV load karo. File nahi mili toh synthetic data generate karo.
     """
     if os.path.exists(DATA_PATH):
-        print(f"✅ Dataset loaded: {DATA_PATH}")
+        print(f"[OK] Dataset loaded: {DATA_PATH}")
         df = pd.read_csv(DATA_PATH)
         print(f"   Rows: {len(df)}, Columns: {list(df.columns)}")
 
@@ -50,7 +50,7 @@ def load_data():
         required = FEATURES + ['learning_style']
         missing  = [c for c in required if c not in df.columns]
         if missing:
-            print(f"⚠️  Missing columns: {missing} — generating synthetic data")
+            print(f"[WARN] Missing columns: {missing} — generating synthetic data")
             return generate_synthetic_data()
 
         # Remove rows with NaN in features
@@ -59,7 +59,7 @@ def load_data():
         return df
 
     else:
-        print(f"⚠️  Dataset not found at: {DATA_PATH}")
+        print(f"[WARN] Dataset not found at: {DATA_PATH}")
         print("   Synthetic data generate ho rahi hai...")
         return generate_synthetic_data()
 
@@ -86,7 +86,7 @@ def generate_synthetic_data(n=10000):
 
     df = pd.DataFrame(rows, columns=FEATURES + ['learning_style'])
     df = df.sample(frac=1, random_state=42).reset_index(drop=True)
-    print(f"✅ Synthetic data: {len(df)} rows")
+    print(f"[OK] Synthetic data: {len(df)} rows")
     return df
 
 
@@ -103,7 +103,7 @@ def preprocess(df):
     le = LabelEncoder()
     y  = le.fit_transform(df['learning_style'].values)
 
-    print(f"\n📊 Class distribution:")
+    print(f"\n[INFO] Class distribution:")
     for cls, count in zip(le.classes_, np.bincount(y)):
         print(f"   {cls:25s}: {count} ({count/len(y)*100:.1f}%)")
 
@@ -127,7 +127,7 @@ def train_ensemble(X_scaled, y, le):
     - CV Accuracy: ~93.3%
     - All 4 classes: precision/recall > 91%
     """
-    print("\n🤖 Training Ensemble Model...")
+    print("\n[INFO] Training Ensemble Model...")
 
     gb  = GradientBoostingClassifier(
         n_estimators  = 150,
@@ -165,7 +165,7 @@ def train_ensemble(X_scaled, y, le):
     train_acc  = accuracy_score(y, y_pred)
     print(f"   Train Accuracy: {train_acc:.4f}")
 
-    print(f"\n📋 Classification Report:")
+    print("\n[INFO] Classification Report:")
     print(classification_report(y, y_pred, target_names=le.classes_))
 
     return ensemble, scores.mean()
@@ -180,7 +180,7 @@ def train_kmeans(X_scaled, y_true_labels):
     KMeans train karo — backward compatibility ke liye.
     Predict_cluster() mein agar classifier fail kare toh fallback.
     """
-    print("🔵 Training KMeans (K=4) for backward compatibility...")
+    print("[INFO] Training KMeans (K=4) for backward compatibility...")
 
     km = KMeans(n_clusters=4, random_state=42, n_init=20, max_iter=500)
     km.fit(X_scaled)
@@ -216,12 +216,12 @@ def save_models(ensemble, scaler, le, km, cluster_map, cv_accuracy):
         'cluster_map.pkl':   cluster_map,
     }
 
-    print(f"\n💾 Saving models to: {MODELS_PATH}")
+    print(f"\n[INFO] Saving models to: {MODELS_PATH}")
     for filename, obj in models.items():
         path = os.path.join(MODELS_PATH, filename)
         with open(path, 'wb') as f:
             pickle.dump(obj, f)
-        print(f"   ✅ {filename}")
+        print(f"   [OK] {filename}")
 
     # Save metadata
     import json
@@ -234,7 +234,7 @@ def save_models(ensemble, scaler, le, km, cluster_map, cv_accuracy):
     }
     with open(os.path.join(MODELS_PATH, 'model_info.json'), 'w') as f:
         json.dump(meta, f, indent=2)
-    print(f"   ✅ model_info.json")
+    print(f"   [OK] model_info.json")
 
 
 # =============================================================
@@ -248,18 +248,18 @@ def test_predictions(ensemble, scaler, le):
         {'scores': [88, 65, 72, 50, 60], 'expected': 'conceptual_thinker'},
         {'scores': [60, 62, 58, 88, 75], 'expected': 'step_by_step'},
     ]
-    print("\n🧪 Prediction Test:")
+    print("\n[TEST] Prediction Test:")
     all_pass = True
     for tc in test_cases:
         scaled = scaler.transform([tc['scores']])
         pred   = le.classes_[ensemble.predict(scaled)[0]]
         match  = pred == tc['expected']
-        status = "✅" if match else "❌"
+        status = "[PASS]" if match else "[FAIL]"
         print(f"   {status} Expected: {tc['expected']:25s} | Got: {pred}")
         if not match:
             all_pass = False
 
-    print(f"\n{'✅ All tests passed!' if all_pass else '⚠️  Some tests failed'}")
+    print(f"\n{'[OK] All tests passed!' if all_pass else '[WARN] Some tests failed'}")
 
 
 # =============================================================
@@ -279,5 +279,5 @@ if __name__ == '__main__':
     test_predictions(ensemble, scaler, le)
 
     print("\n" + "="*60)
-    print(f"🎉 Training Complete! CV Accuracy: {cv_acc:.4f}")
+    print(f"\n[DONE] Training Complete! CV Accuracy: {cv_acc:.4f}")
     print("="*60)
