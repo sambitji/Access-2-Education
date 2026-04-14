@@ -176,9 +176,10 @@ class Settings(BaseSettings):
     # ML Model Settings
     # ──────────────────────────────────────────────────────────
 
+    # Vercel setup ke liye paths optimize karo
     ML_MODELS_PATH: str = Field(
-        default="../ml/models",
-        description="ML model files ka path — kmeans_model.pkl, scaler.pkl, cluster_map.pkl"
+        default="ML/models", # Root se default path
+        description="ML model files ka path"
     )
     KMEANS_MODEL_FILE:  str = Field(default="kmeans_model.pkl")
     SCALER_FILE:        str = Field(default="scaler.pkl")
@@ -281,7 +282,13 @@ class Settings(BaseSettings):
     @property
     def kmeans_model_path(self) -> str:
         """KMeans model file ka full path."""
-        return os.path.join(self.ML_MODELS_PATH, self.KMEANS_MODEL_FILE)
+        # Agar relative path kaam na kare, toh absolute dhundo
+        path = os.path.join(self.ML_MODELS_PATH, self.KMEANS_MODEL_FILE)
+        if not os.path.exists(path):
+            # Try searching from Backend folder
+            alt_path = os.path.join("..", self.ML_MODELS_PATH, self.KMEANS_MODEL_FILE)
+            if os.path.exists(alt_path): return alt_path
+        return path
 
     @property
     def scaler_path(self) -> str:

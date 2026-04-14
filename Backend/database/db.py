@@ -45,20 +45,26 @@ db_instance = Database()
 
 async def connect_db():
     """MongoDB se connect karo — startup pe call hota hai."""
-    print(f"MongoDB se connect ho raha hai: {MONGODB_URL}")
+    try:
+        print(f"MongoDB se connect ho raha hai: {MONGODB_URL}")
 
-    db_instance.client = AsyncIOMotorClient(
-        MONGODB_URL,
-        serverSelectionTimeoutMS = MONGO_TIMEOUT,
-        maxPoolSize              = MONGO_MAX,
-        minPoolSize              = MONGO_MIN,
-    )
-    db_instance.database = db_instance.client[DATABASE_NAME]
+        db_instance.client = AsyncIOMotorClient(
+            MONGODB_URL,
+            serverSelectionTimeoutMS = MONGO_TIMEOUT,
+            maxPoolSize              = MONGO_MAX,
+            minPoolSize              = MONGO_MIN,
+        )
+        db_instance.database = db_instance.client[DATABASE_NAME]
 
-    await db_instance.client.admin.command("ping")
-    print(f"MongoDB connected! Database: '{DATABASE_NAME}'")
+        # Vercel mein ping crash rokne ke liye
+        await db_instance.client.admin.command("ping")
+        print(f"MongoDB connected! Database: '{DATABASE_NAME}'")
 
-    await create_indexes()
+        await create_indexes()
+    except Exception as e:
+        print(f"CRITICAL WARNING: MongoDB se connect nahi ho paye: {e}")
+        print("Production mein MONGODB_URL env var check karo!")
+        # Server crash nahi hoga, features degrade honge
 
 
 async def disconnect_db():
