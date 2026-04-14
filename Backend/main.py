@@ -65,6 +65,10 @@ app.include_router(auth_router)
 app.include_router(test_router)
 app.include_router(content_router)
 
+@app.get("/api/health", tags=["Health"])
+async def health():
+    return {"status": "healthy", "service": "Edu-Platform API"}
+
 
 # =============================================================
 # Root
