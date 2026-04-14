@@ -24,6 +24,7 @@ from passlib.context import CryptContext
 from motor.motor_asyncio import AsyncIOMotorDatabase
 import random
 import string
+from limiter import limiter
 
 from database.db import get_db
 
@@ -232,6 +233,7 @@ async def send_otp_email(email: str, otp: str, name: str):
 
 @router.post("/register", status_code=status.HTTP_201_CREATED,
              summary="Naya student ya teacher register karo")
+@limiter.limit("5/minute")
 async def register(
     body: RegisterRequest,
     db: AsyncIOMotorDatabase = Depends(get_db),
@@ -286,6 +288,7 @@ async def register(
 
 @router.post("/login", response_model=TokenResponse,
              summary="Email + password se login karo")
+@limiter.limit("5/minute")
 async def login(
     body: LoginRequest,
     db: AsyncIOMotorDatabase = Depends(get_db),
@@ -433,6 +436,7 @@ async def update_profile(
 # =============================================================
 
 @router.post("/forgot-password", summary="OTP email pe bhejo")
+@limiter.limit("3/minute")
 async def forgot_password(
     body: ForgotPasswordRequest,
     background_tasks: BackgroundTasks,

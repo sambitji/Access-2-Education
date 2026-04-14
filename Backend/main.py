@@ -8,9 +8,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from database.db import connect_db, disconnect_db
-from routes.auth    import router as auth_router
-from routes.test    import router as test_router
 from routes.content import router as content_router
+from config import settings
+from limiter import limiter
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
 
 
 # =============================================================
@@ -44,11 +46,15 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins     = ["http://localhost:5173", "http://localhost:3000"],
-    allow_credentials = True,
+    allow_origins     = settings.CORS_ORIGINS,
+    allow_credentials = settings.CORS_ALLOW_CREDENTIALS,
     allow_methods     = ["*"],
     allow_headers     = ["*"],
 )
+
+# Rate Limiter setup
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 
 # =============================================================

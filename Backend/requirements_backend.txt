@@ -39,6 +39,7 @@ python-slugify==8.0.4        # URL-safe slugs
 
 # ── CORS & Middleware ────────────────────────────────────────
 starlette==0.37.2            # Comes with FastAPI
+slowapi==0.1.9               # Rate limiting
 
 # ── Testing ──────────────────────────────────────────────────
 pytest==8.2.0
