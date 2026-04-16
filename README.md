@@ -57,7 +57,7 @@ Traditional education ka ek bada problem hai — **ek hi teaching style sabke li
 | Feature | Description |
 |---|---|
 | 🧠 **Aptitude Test** | 25 questions · 5 cognitive sections · 30 min timer · Auto-scored |
-| 🤖 **ML Clustering** | Voting Ensemble (GB + SVM + LR) — **93.3% CV Accuracy** |
+| 🤖 **ML Clustering** | Voting Ensemble (GB + SVM + LR) — **93.1% CV Accuracy** |
 | 🎯 **Smart Recommendations** | 0–100 scoring engine — type + tags + difficulty progression |
 | 💬 **AI Chatbot** | DeepSeek-powered lecture summarizer + Q&A assistant |
 | 📊 **Progress Dashboard** | Subject-wise charts, completion tracking, recent activity |
