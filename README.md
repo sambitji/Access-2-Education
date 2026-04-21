@@ -81,7 +81,6 @@ This project is configured as a Vercel-ready monorepo.
 2. **Environment Setup**: In the Vercel Project Settings, add the required environment variables:
    - Database Connection Strings (`MONGODB_URL`).
    - Security Secrets (`SECRET_KEY`).
-   - Third-party AI Integration keys.
 3. **Trigger Build**: Vercel will use the `vercel.json` orchestration to deploy the full-stack application.
 
 ---
