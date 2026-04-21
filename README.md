@@ -70,18 +70,13 @@ Integrated with the **DeepSeek-V3** model, our AI chatbot acts as a 24/7 persona
 
 This project is configured as a Vercel-ready monorepo.
 
-### Prerequisites
-1. A **MongoDB Atlas** account for the cloud database.
-2. A **DeepSeek API Key** for the AI Chatbot.
-
-### Quick Deploy
-1. Link this repository to **Vercel**.
-2. Vercel will auto-detect the `vercel.json` and `Frontend/package.json`.
-3. Add the following **Environment Variables** in the Vercel Dashboard:
-   - `MONGODB_URL`: Your Atlas connection string.
-   - `SECRET_KEY`: A secure random string for JWT.
-   - `DEEPSEEK_API_KEY`: Your DeepSeek key.
-   - `DEBUG`: `False`.
+### Configuration & Deployment
+1. **Repository Linking**: Connect this repository to your **Vercel** account.
+2. **Environment Setup**: In the Vercel Project Settings, add the required environment variables:
+   - Database Connection Strings (`MONGODB_URL`).
+   - Security Secrets (`SECRET_KEY`).
+   - Third-party AI Integration keys.
+3. **Trigger Build**: Vercel will use the `vercel.json` orchestration to deploy the full-stack application.
 
 ---
 
