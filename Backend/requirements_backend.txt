@@ -7,6 +7,7 @@
 # ── Web Framework ─────────────────────────────────────────────
 fastapi==0.111.0
 uvicorn[standard]==0.29.0    # ASGI server
+gunicorn==22.0.0             # Production process manager
 python-multipart==0.0.9      # File uploads support
 
 # ── Authentication & Security ────────────────────────────────

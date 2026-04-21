@@ -86,5 +86,5 @@ async def health():
 async def root():
     return {
         "message": "Edu-Platform API chal rahi hai!",
-        "docs":    "http://localhost:8000/docs",
+        "docs":    "/docs",
     }

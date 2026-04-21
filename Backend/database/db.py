@@ -46,7 +46,16 @@ db_instance = Database()
 async def connect_db():
     """MongoDB se connect karo — startup pe call hota hai."""
     try:
-        print(f"MongoDB se connect ho raha hai: {MONGODB_URL}")
+        # URL mask karo agar credentials hain
+        masked_url = MONGODB_URL
+        if "@" in MONGODB_URL:
+            # mongodb://user:pass@host -> mongodb://***@host
+            prefix = MONGODB_URL.split("@")[0]
+            if ":" in prefix:
+                head = prefix.split("://")[0]
+                masked_url = f"{head}://***@{MONGODB_URL.split('@')[1]}"
+        
+        print(f"MongoDB se connect ho raha hai: {masked_url}")
 
         db_instance.client = AsyncIOMotorClient(
             MONGODB_URL,
