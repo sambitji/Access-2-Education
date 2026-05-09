@@ -14,7 +14,13 @@
 
 import pickle
 import os
-import numpy as np
+try:
+    import numpy as np
+    ML_LIBS_AVAILABLE = True
+except ImportError:
+    ML_LIBS_AVAILABLE = False
+    print("[predict_cluster] NumPy/SKLearn nahi mile — rule-based fallback use hoga.")
+
 from typing import Optional
 
 FEATURES    = ['logical', 'verbal', 'numerical', 'memory', 'attention']
@@ -28,9 +34,10 @@ MODELS_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models')
 def _load(filename):
     path = os.path.join(MODELS_PATH, filename)
     try:
+        if not ML_LIBS_AVAILABLE: return None
         with open(path, 'rb') as f:
             return pickle.load(f)
-    except FileNotFoundError:
+    except (FileNotFoundError, Exception):
         return None
 
 # Load all — None agar file nahi mili

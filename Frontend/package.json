@@ -1,6 +1,7 @@
 {
   "name": "edu-platform-frontend",
   "version": "1.0.0",
+  "type": "module",
   "private": true,
   "description": "Edu-Platform: AI-powered personalized learning frontend",
   "scripts": {
