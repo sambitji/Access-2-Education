@@ -59,11 +59,6 @@ app = FastAPI(
 )
 
 
-@app.on_event("startup")
-async def startup_event():
-    print("Startup event triggered...")
-    await connect_db()
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins     = settings.CORS_ORIGINS,
