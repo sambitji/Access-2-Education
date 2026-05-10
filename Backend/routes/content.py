@@ -32,9 +32,9 @@ async def get_recommendations(
     rec:          Recommender   = Depends(get_recommender),
 ):
     if not current_user.learning_style:
-        raise HTTPException(status_code=400, detail="Pehle test do!")
+        raise HTTPException(status_code=400, detail="Take the test first!")
 
-    # Completed content fetch karo
+    # Fetch completed content
     result = await db.execute(select(Progress.content_id).where(Progress.user_id == current_user.id, Progress.completed == True))
     completed_ids = [r[0] for r in result.all()]
 

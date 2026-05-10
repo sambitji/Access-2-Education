@@ -16,8 +16,8 @@ export default function Login() {
 
   const validate = () => {
     const e = {};
-    if (!form.email)    e.email    = "Email zaroori hai";
-    if (!form.password) e.password = "Password zaroori hai";
+    if (!form.email)    e.email    = "Email is required";
+    if (!form.password) e.password = "Password is required";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -33,7 +33,7 @@ export default function Login() {
       toast.success(`Welcome back, ${user.name}!`);
       navigate("/dashboard");
     } catch (err) {
-      const msg = err.response?.data?.detail || "Login failed. Dobara try karo.";
+      const msg = err.response?.data?.detail || "Login failed. Please try again.";
       toast.error(msg);
     } finally {
       setLoading(false);
@@ -74,8 +74,8 @@ export default function Login() {
             <BookOpen size={32} />
             <span className="text-2xl font-bold text-white">EduPlatform</span>
           </div>
-          <h1 className="text-2xl font-bold text-white">Wapas aao!</h1>
-          <p className="text-gray-400 text-sm mt-1">Apne account mein login karo</p>
+          <h1 className="text-2xl font-bold text-white">Welcome back!</h1>
+          <p className="text-gray-400 text-sm mt-1">Log in to your account</p>
         </div>
 
         {/* Form */}
@@ -91,7 +91,7 @@ export default function Login() {
 
           <div className="text-right">
             <Link to="/forgot-password" className="text-indigo-400 text-sm hover:underline">
-              Password bhool gaye?
+              Forgot password?
             </Link>
           </div>
 
@@ -102,14 +102,14 @@ export default function Login() {
             {loading ? (
               <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
             ) : (
-              <><LogIn size={18}/> Login Karo</>
+              <><LogIn size={18}/> Login</>
             )}
           </button>
 
           <p className="text-center text-gray-400 text-sm">
-            Account nahi hai?{" "}
+            Don't have an account?{" "}
             <Link to="/register" className="text-indigo-400 hover:underline font-medium">
-              Register karo
+              Register
             </Link>
           </p>
         </form>

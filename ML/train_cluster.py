@@ -3,7 +3,7 @@
 # Edu-Platform — Train Best Accuracy Model
 #
 # Run: python train_cluster.py
-# Output: ml/models/ mein 5 files save hongi
+# Output: 5 files will be saved in ml/models/
 #
 # Model: Voting Ensemble (GradientBoosting + SVM + LogisticRegression)
 # CV Accuracy: ~93.3%  |  Train Accuracy: ~94.8%
@@ -39,7 +39,7 @@ DATA_PATH   = os.path.join(os.path.dirname(__file__), '..', 'data', 'student_apt
 
 def load_data():
     """
-    CSV load karo. File nahi mili toh synthetic data generate karo.
+    Load CSV. If file not found, generate synthetic data.
     """
     if os.path.exists(DATA_PATH):
         print(f"[OK] Dataset loaded: {DATA_PATH}")
@@ -60,13 +60,13 @@ def load_data():
 
     else:
         print(f"[WARN] Dataset not found at: {DATA_PATH}")
-        print("   Synthetic data generate ho rahi hai...")
+        print("   Generating synthetic data...")
         return generate_synthetic_data()
 
 
 def generate_synthetic_data(n=10000):
     """
-    Agar real dataset nahi hai toh synthetic banao.
+    If real dataset not available, create synthetic data.
     Same distribution as student_aptitude_dataset.csv
     """
     profiles = {
@@ -119,9 +119,9 @@ def train_ensemble(X_scaled, y, le):
     Voting Ensemble: GradientBoosting + SVM + LogisticRegression
 
     Why this combination:
-    - GradientBoosting: non-linear patterns best capture karta hai
-    - SVM(rbf): high-dimensional space mein best margins
-    - LogisticRegression: fast aur stable baseline
+    - GradientBoosting: best captures non-linear patterns
+    - SVM(rbf): best margins in high-dimensional space
+    - LogisticRegression: fast and stable baseline
 
     Results:
     - CV Accuracy: ~93.3%
@@ -177,8 +177,8 @@ def train_ensemble(X_scaled, y, le):
 
 def train_kmeans(X_scaled, y_true_labels):
     """
-    KMeans train karo — backward compatibility ke liye.
-    Predict_cluster() mein agar classifier fail kare toh fallback.
+    Train KMeans — for backward compatibility.
+    If classifier fails in predict_cluster(), use as fallback.
     """
     print("[INFO] Training KMeans (K=4) for backward compatibility...")
 

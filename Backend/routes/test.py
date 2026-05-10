@@ -14,7 +14,7 @@ from database.db import get_db, User, TestResult
 from routes.auth import get_current_user, get_current_student
 from models import AnswerItem, TestSubmitRequest
 
-# ML predict karo
+# ML predict
 try:
     from ML.predict_cluster import predict_learning_style, predict_cluster_id, get_model_info
     ML_AVAILABLE = True
@@ -30,38 +30,38 @@ RETEST_COOLDOWN_DAYS = 30
 # =============================================================
 QUESTIONS_BANK = {
     "logical": [
-        {"id":"L1","section":"logical",  "question":"Agar MANGO ko NBOHI likha jaaye toh APPLE ko kaise likhenge?",                             "options":["BQQMF","CQQNF","BQPMF","CQQOF"],           "correct":"BQQMF","marks":20},
-        {"id":"L2","section":"logical",  "question":"Series mein agla number kya hoga? 2, 6, 12, 20, 30, ?",                                     "options":["40","42","38","44"],                       "correct":"42","marks":20},
-        {"id":"L3","section":"logical",  "question":"Teen dost A, B, C hain. A, B se bada hai. C, A se bada hai. Sabse bada kaun?",              "options":["A","B","C","Barabar"],                     "correct":"C","marks":20},
-        {"id":"L4","section":"logical",  "question":"Ek ghadi mein 3:15 baj rahe hain. Minute aur hour hand ka angle kya hoga?",                 "options":["0°","7.5°","15°","22.5°"],                 "correct":"7.5°","marks":20},
-        {"id":"L5","section":"logical",  "question":"5 machines 5 min mein 5 widgets banaati hain. 100 machines 100 min mein kitne banayengi?",  "options":["100","500","1000","10000"],                "correct":"10000","marks":20},
+        {"id":"L1","section":"logical",  "question":"If MANGO is written as NBOHI, how will APPLE be written?",                             "options":["BQQMF","CQQNF","BQPMF","CQQOF"],           "correct":"BQQMF","marks":20},
+        {"id":"L2","section":"logical",  "question":"What will be the next number in the series? 2, 6, 12, 20, 30, ?",                                     "options":["40","42","38","44"],                       "correct":"42","marks":20},
+        {"id":"L3","section":"logical",  "question":"Three friends A, B, C. A is taller than B. C is taller than A. Who is tallest?",              "options":["A","B","C","Equal"],                     "correct":"C","marks":20},
+        {"id":"L4","section":"logical",  "question":"A clock shows 3:15. What is the angle between minute and hour hand?",                 "options":["0°","7.5°","15°","22.5°"],                 "correct":"7.5°","marks":20},
+        {"id":"L5","section":"logical",  "question":"5 machines make 5 widgets in 5 minutes. How many will 100 machines make in 100 minutes?",  "options":["100","500","1000","10000"],                "correct":"10000","marks":20},
     ],
     "verbal": [
-        {"id":"V1","section":"verbal",   "question":"'Ephemeral' ka sahi arth kya hai?",                                                          "options":["Jo bahut purana ho","Jo bahut thodi der ke liye ho","Jo bahut bada ho","Jo mushkil ho"], "correct":"Jo bahut thodi der ke liye ho","marks":20},
-        {"id":"V2","section":"verbal",   "question":"Ramesh roz 6 baje uthta hai, exercise karta hai, phir nashta, 9 baje office.\nOffice kab?", "options":["6 baje","Nashte ke pehle","9 baje","Exercise ke baad"],                               "correct":"9 baje","marks":20},
-        {"id":"V3","section":"verbal",   "question":"'Benevolent' ka antonym kya hai?",                                                           "options":["Kind","Malevolent","Generous","Helpful"],                                               "correct":"Malevolent","marks":20},
-        {"id":"V4","section":"verbal",   "question":"Sahi sentence choose karo:",                                                                  "options":["He don't know the answer.","He doesn't knows the answer.","He doesn't know the answer.","He not know."], "correct":"He doesn't know the answer.","marks":20},
-        {"id":"V5","section":"verbal",   "question":"'Verbose' ka matlab hai:",                                                                    "options":["Bahut kam bolna","Seedha bolna","Bahut zyada bolna","Clearly explain karna"],            "correct":"Bahut zyada bolna","marks":20},
+        {"id":"V1","section":"verbal",   "question":"What is the correct meaning of 'Ephemeral'?",                                                          "options":["Very old","Very short-lived","Very big","Difficult"], "correct":"Very short-lived","marks":20},
+        {"id":"V2","section":"verbal",   "question":"Ramesh wakes at 6, exercises, then breakfast, office at 9.\nWhen does he go to office?", "options":["At 6","Before breakfast","At 9","After exercise"],                               "correct":"At 9","marks":20},
+        {"id":"V3","section":"verbal",   "question":"What is the antonym of 'Benevolent'?",                                                           "options":["Kind","Malevolent","Generous","Helpful"],                                               "correct":"Malevolent","marks":20},
+        {"id":"V4","section":"verbal",   "question":"Choose the correct sentence:",                                                                  "options":["He don't know the answer.","He doesn't knows the answer.","He doesn't know the answer.","He not know."], "correct":"He doesn't know the answer.","marks":20},
+        {"id":"V5","section":"verbal",   "question":"What does 'Verbose' mean?",                                                                    "options":["Speaking very little","Speaking directly","Speaking too much","Explaining clearly"],            "correct":"Speaking too much","marks":20},
     ],
     "numerical": [
-        {"id":"N1","section":"numerical","question":"Train 60 km/h pe chalti hai. 2.5 ghante mein kitni doori?",                                  "options":["120 km","140 km","150 km","160 km"],       "correct":"150 km","marks":20},
-        {"id":"N2","section":"numerical","question":"Item Rs.800 mein kharida, Rs.1000 mein becha. Profit %?",                                    "options":["20%","25%","15%","30%"],                   "correct":"25%","marks":20},
-        {"id":"N3","section":"numerical","question":"5 numbers ka average 18 hai. Ek 10 remove karo — baaki 4 ka average?",                      "options":["18","20","22","25"],                       "correct":"20","marks":20},
+        {"id":"N1","section":"numerical","question":"Train travels at 60 km/h. Distance in 2.5 hours?",                                  "options":["120 km","140 km","150 km","160 km"],       "correct":"150 km","marks":20},
+        {"id":"N2","section":"numerical","question":"Item bought for Rs.800, sold for Rs.1000. Profit %?",                                    "options":["20%","25%","15%","30%"],                   "correct":"25%","marks":20},
+        {"id":"N3","section":"numerical","question":"Average of 5 numbers is 18. Remove 10 — average of remaining 4?",                      "options":["18","20","22","25"],                       "correct":"20","marks":20},
         {"id":"N4","section":"numerical","question":"2^2 + 3^3 + 4^0 = ?",                                                                        "options":["30","32","34","36"],                       "correct":"32","marks":20},
-        {"id":"N5","section":"numerical","question":"Kaam A 10 din mein karta hai, B 15 din mein. Saath mein kitne din?",                         "options":["5 din","6 din","7 din","8 din"],           "correct":"6 din","marks":20},
+        {"id":"N5","section":"numerical","question":"A can do work in 10 days, B in 15 days. Together how many days?",                         "options":["5 days","6 days","7 days","8 days"],           "correct":"6 days","marks":20},
     ],
     "memory": [
-        {"id":"M1","section":"memory",   "question":"List yaad karo: Apple, Banana, Cherry, Date, Elderberry.\nTeesra fruit?",                    "options":["Banana","Cherry","Date","Apple"],          "correct":"Cherry","marks":20},
-        {"id":"M2","section":"memory",   "question":"Numbers yaad karo: 47, 83, 29, 61, 15.\nDusra number?",                                      "options":["47","29","83","61"],                       "correct":"83","marks":20},
-        {"id":"M3","section":"memory",   "question":"'The quick brown fox jumps over the lazy dog.'\n'fox' ke liye adjective?",                   "options":["quick","brown","lazy","slow"],             "correct":"brown","marks":20},
-        {"id":"M4","section":"memory",   "question":"Colors: Red, Blue, Green, Yellow, Purple, Orange.\nChauthha?",                               "options":["Green","Yellow","Purple","Blue"],          "correct":"Yellow","marks":20},
-        {"id":"M5","section":"memory",   "question":"Capitals: France-Paris, Japan-Tokyo, India-Delhi, Australia-Canberra.\nAustralia ki capital?","options":["Sydney","Melbourne","Canberra","Brisbane"], "correct":"Canberra","marks":20},
+        {"id":"M1","section":"memory",   "question":"Remember list: Apple, Banana, Cherry, Date, Elderberry.\nThird fruit?",                    "options":["Banana","Cherry","Date","Apple"],          "correct":"Cherry","marks":20},
+        {"id":"M2","section":"memory",   "question":"Remember numbers: 47, 83, 29, 61, 15.\nSecond number?",                                      "options":["47","29","83","61"],                       "correct":"83","marks":20},
+        {"id":"M3","section":"memory",   "question":"'The quick brown fox jumps over the lazy dog.'\nAdjective for 'fox'?",                   "options":["quick","brown","lazy","slow"],             "correct":"brown","marks":20},
+        {"id":"M4","section":"memory",   "question":"Colors: Red, Blue, Green, Yellow, Purple, Orange.\nFourth?",                               "options":["Green","Yellow","Purple","Blue"],          "correct":"Yellow","marks":20},
+        {"id":"M5","section":"memory",   "question":"Capitals: France-Paris, Japan-Tokyo, India-Delhi, Australia-Canberra.\nAustralia's capital?","options":["Sydney","Melbourne","Canberra","Brisbane"], "correct":"Canberra","marks":20},
     ],
     "attention": [
-        {"id":"A1","section":"attention","question":"'The cat sat on the mat near the window while the dog slept under the table.'\n'the' kitni baar?","options":["3","4","5","6"],                         "correct":"5","marks":20},
+        {"id":"A1","section":"attention","question":"'The cat sat on the mat near the window while the dog slept under the table.'\nHow many 'the'?", "options":["3","4","5","6"],                         "correct":"5","marks":20},
         {"id":"A2","section":"attention","question":"Odd one out:\n2, 4, 7, 8, 12, 16",                                                           "options":["4","7","12","16"],                         "correct":"7","marks":20},
-        {"id":"A3","section":"attention","question":"Kya galat hai?\n'He buyed milk and payed at counter.'",                                       "options":["Sirf buyed galat","buyed aur payed dono galat","Kuch galat nahi","Sirf payed galat"], "correct":"buyed aur payed dono galat","marks":20},
-        {"id":"A4","section":"attention","question":"Pattern: △○△△○△△△○?\nAgla?",                                                                "options":["△","○","□","△○"],                         "correct":"△","marks":20},
+        {"id":"A3","section":"attention","question":"What's wrong?\n'He buyed milk and payed at counter.'",                                       "options":["Only buyed wrong","Both buyed and payed wrong","Nothing wrong","Only payed wrong"], "correct":"Both buyed and payed wrong","marks":20},
+        {"id":"A4","section":"attention","question":"Pattern: △○△△○△△△○?\nNext?",                                                                "options":["△","○","□","△○"],                         "correct":"△","marks":20},
         {"id":"A5","section":"attention","question":"Odd one out:\nTable, Chair, Lamp, Sofa, Pen, Desk",                                          "options":["Lamp","Pen","Sofa","Table"],               "correct":"Pen","marks":20},
     ],
 }

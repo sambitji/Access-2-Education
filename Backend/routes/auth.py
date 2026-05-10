@@ -67,16 +67,16 @@ class RegisterRequest(BaseModel):
     @classmethod
     def password_strength(cls, v):
         if not any(c.isupper() for c in v):
-            raise ValueError("Password mein kam se kam ek uppercase letter hona chahiye")
+            raise ValueError("Password must contain at least one uppercase letter")
         if not any(c.isdigit() for c in v):
-            raise ValueError("Password mein kam se kam ek digit honi chahiye")
+            raise ValueError("Password must contain at least one digit")
         return v
 
     @field_validator("role")
     @classmethod
     def valid_role(cls, v):
         if v not in ("student", "teacher"):
-            raise ValueError("Role sirf 'student' ya 'teacher' ho sakta hai")
+            raise ValueError("Role can only be 'student' or 'teacher'")
         return v
 
 
@@ -148,7 +148,7 @@ def decode_access_token(token: str) -> dict:
     except JWTError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Token invalid ya expire ho gaya hai. Dobara login karo.",
+            detail="Token is invalid or expired. Please login again.",
             headers={"WWW-Authenticate": "Bearer"},
         )
 
@@ -182,12 +182,12 @@ async def get_current_user(
     payload = decode_access_token(token)
     user_id = payload.get("sub")
     if not user_id:
-        raise HTTPException(status_code=401, detail="Token mein user ID nahi mila.")
+        raise HTTPException(status_code=401, detail="User ID not found in token.")
 
     result = await db.execute(select(User).where(User.id == int(user_id)))
     user = result.scalar_one_or_none()
     if not user:
-        raise HTTPException(status_code=404, detail="User nahi mila.")
+        raise HTTPException(status_code=404, detail="User not found.")
     return user
 
 
@@ -195,7 +195,7 @@ async def get_current_student(
     current_user: User = Depends(get_current_user),
 ) -> User:
     if current_user.role != "student":
-        raise HTTPException(status_code=403, detail="Sirf students yahan access kar sakte hain.")
+        raise HTTPException(status_code=403, detail="Only students can access this.")
     return current_user
 
 
@@ -203,7 +203,7 @@ async def get_current_teacher(
     current_user: User = Depends(get_current_user),
 ) -> User:
     if current_user.role != "teacher":
-        raise HTTPException(status_code=403, detail="Sirf teachers yahan access kar sakte hain.")
+        raise HTTPException(status_code=403, detail="Only teachers can access this.")
     return current_user
 
 
@@ -214,7 +214,7 @@ async def get_current_teacher(
 async def send_otp_email(email: str, otp: str, name: str):
     """
     Production mein SMTP/SendGrid se replace karo.
-    Abhi console pe print karta hai.
+    Currently prints to console.
     """
     print(f"\n{'='*50}")
     print(f"  OTP EMAIL  (Simulated)")
@@ -239,7 +239,7 @@ async def register(
     if result.scalar_one_or_none():
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail=f"'{body.email}' se already ek account exist karta hai.",
+            detail=f"'{body.email}' is already registered.",
         )
 
     new_user = User(
@@ -289,7 +289,7 @@ async def login(
     user = result.scalar_one_or_none()
     
     if not user or not verify_password(body.password, user.password_hash):
-        raise HTTPException(status_code=401, detail="Credentials galat hain.")
+        raise HTTPException(status_code=401, detail="Invalid credentials.")
 
     token_data    = {"sub": str(user.id), "role": user.role}
     access_token  = create_access_token(token_data)
@@ -324,7 +324,7 @@ async def login_form(
     user = result.scalar_one_or_none()
     
     if not user or not verify_password(form_data.password, user.password_hash):
-        raise HTTPException(status_code=401, detail="Credentials galat hain.")
+        raise HTTPException(status_code=401, detail="Invalid credentials.")
     access_token = create_access_token({"sub": str(user.id), "role": user.role})
     return {"access_token": access_token, "token_type": "bearer"}
 
@@ -333,7 +333,7 @@ async def login_form(
 # ROUTE 3 — REFRESH TOKEN
 # =============================================================
 
-@router.post("/refresh", summary="Refresh token se naya access token lo")
+@router.post("/refresh", summary="Get new access token from refresh token")
 async def refresh_token_route(
     body: RefreshRequest,
     db: AsyncSession = Depends(get_db),
@@ -344,13 +344,13 @@ async def refresh_token_route(
             raise JWTError("Wrong type")
     except JWTError:
         raise HTTPException(status_code=401,
-                            detail="Refresh token invalid ya expire ho gaya.")
+                            detail="Refresh token is invalid or expired.")
 
     result = await db.execute(select(RefreshToken).where(RefreshToken.token == body.refresh_token))
     stored = result.scalar_one_or_none()
     if not stored:
         raise HTTPException(status_code=401,
-                            detail="Refresh token revoke ho chuka hai.")
+                            detail="Refresh token has been revoked.")
 
     access_token = create_access_token({
         "sub":  payload.get("sub"),
@@ -363,7 +363,7 @@ async def refresh_token_route(
 # ROUTE 4 — LOGOUT
 # =============================================================
 
-@router.post("/logout", summary="Logout — refresh token invalidate")
+@router.post("/logout", summary="Logout — invalidate refresh token")
 async def logout(
     body: RefreshRequest,
     db: AsyncSession = Depends(get_db),
@@ -372,18 +372,18 @@ async def logout(
     refresh_token_obj = result.scalar_one_or_none()
     
     if not refresh_token_obj:
-        raise HTTPException(status_code=400, detail="Token mila nahi.")
+        raise HTTPException(status_code=400, detail="Token not found.")
     
     await db.delete(refresh_token_obj)
     await db.commit()
-    return {"message": "Successfully logout ho gaye!"}
+    return {"message": "Successfully logged out!"}
 
 
 # =============================================================
 # ROUTE 5 — GET MY PROFILE
 # =============================================================
 
-@router.get("/me", summary="Apna profile dekho (protected)")
+@router.get("/me", summary="View my profile (protected)")
 async def get_my_profile(
     current_user: dict = Depends(get_current_user),
 ):
@@ -394,7 +394,7 @@ async def get_my_profile(
 # ROUTE 6 — UPDATE PROFILE
 # =============================================================
 
-@router.put("/me", summary="Profile update karo")
+@router.put("/me", summary="Update profile")
 async def update_profile(
     body: UpdateProfileRequest,
     current_user: User = Depends(get_current_user),
@@ -408,14 +408,14 @@ async def update_profile(
     if body.new_password:
         if not body.old_password:
             raise HTTPException(status_code=400,
-                                detail="Purana password bhi dena padega.")
+                                detail="Old password is also required.")
         if not verify_password(body.old_password, current_user.password_hash):
             raise HTTPException(status_code=401,
-                                detail="Purana password galat hai.")
+                                detail="Old password is incorrect.")
         updates["password_hash"] = hash_password(body.new_password)
 
     if not updates:
-        raise HTTPException(status_code=400, detail="Koi update field nahi di.")
+        raise HTTPException(status_code=400, detail="No update fields provided.")
 
     for key, value in updates.items():
         setattr(current_user, key, value)
@@ -423,14 +423,14 @@ async def update_profile(
     await db.commit()
     await db.refresh(current_user)
 
-    return {"message": "Profile update ho gaya!", "user": format_user_response(current_user)}
+    return {"message": "Profile updated successfully!", "user": format_user_response(current_user)}
 
 
 # =============================================================
 # ROUTE 7 — FORGOT PASSWORD
 # =============================================================
 
-@router.post("/forgot-password", summary="OTP email pe bhejo")
+@router.post("/forgot-password", summary="Send OTP to email")
 @limiter.limit("3/minute")
 async def forgot_password(
     request: Request,
@@ -441,7 +441,7 @@ async def forgot_password(
     result = await db.execute(select(User).where(User.email == body.email.lower()))
     user = result.scalar_one_or_none()
     if not user:
-        return {"message": "Agar ye email registered hai toh OTP bhej diya gaya hai."}
+        return {"message": "If this email is registered, an OTP has been sent."}
 
     otp = generate_otp()
     
@@ -462,14 +462,14 @@ async def forgot_password(
     await db.commit()
     
     background_tasks.add_task(send_otp_email, body.email, otp, user.name)
-    return {"message": "OTP bhej diya gaya hai. Inbox check karo. (10 min valid)"}
+    return {"message": "OTP has been sent. Check your inbox. (valid for 10 min)"}
 
 
 # =============================================================
 # ROUTE 8 — RESET PASSWORD
 # =============================================================
 
-@router.post("/reset-password", summary="OTP se naya password set karo")
+@router.post("/reset-password", summary="Set new password using OTP")
 async def reset_password(
     body: ResetPasswordRequest,
     db: AsyncSession = Depends(get_db),
@@ -484,14 +484,14 @@ async def reset_password(
     
     if not otp_record:
         raise HTTPException(status_code=400,
-                            detail="OTP nahi mila ya already use ho chuka hai.")
+                            detail="OTP not found or already used.")
 
     if datetime.now(timezone.utc) > otp_record.expires_at:
         raise HTTPException(status_code=400,
-                            detail="OTP expire ho gaya. Dobara try karo.")
+                            detail="OTP has expired. Please try again.")
 
     if otp_record.otp != body.otp:
-        raise HTTPException(status_code=400, detail="OTP galat hai.")
+        raise HTTPException(status_code=400, detail="OTP is incorrect.")
 
     # Update password
     result = await db.execute(select(User).where(User.email == body.email.lower()))
@@ -512,4 +512,4 @@ async def reset_password(
             await db.delete(rt)
         await db.commit()
 
-    return {"message": "Password reset ho gaya! Ab naye password se login karo."}
+    return {"message": "Password reset successful! Please login with your new password."}

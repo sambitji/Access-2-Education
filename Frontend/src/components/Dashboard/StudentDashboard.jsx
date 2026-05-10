@@ -49,21 +49,21 @@ export default function StudentDashboard() {
                       justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white mb-1">
-            Namaste, {user?.name?.split(" ")[0]}! 👋
+            Hello, {user?.name?.split(" ")[0]}! 👋
           </h1>
           {cfg ? (
             <p className="text-gray-400 text-sm">
-              Tumhara style: <span className="text-indigo-300 font-medium">{cfg.emoji} {cfg.label}</span>
+              Your style: <span className="text-indigo-300 font-medium">{cfg.emoji} {cfg.label}</span>
             </p>
           ) : (
-            <p className="text-amber-400 text-sm">⚠️ Pehle aptitude test do!</p>
+            <p className="text-amber-400 text-sm">⚠️ Please complete the aptitude test first!</p>
           )}
         </div>
         {!user?.learning_style && (
           <button onClick={() => navigate("/test")}
             className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white
                        px-5 py-2.5 rounded-xl text-sm font-medium transition">
-            Test Do <ArrowRight size={16}/>
+              Take Test <ArrowRight size={16}/>
           </button>
         )}
       </div>
@@ -92,10 +92,10 @@ export default function StudentDashboard() {
       {/* Recommendations */}
       <div>
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-xl font-bold text-white">🎯 Tumhare Liye Recommendations</h2>
+          <h2 className="text-xl font-bold text-white">🎯 Recommendations for You</h2>
           <button onClick={() => navigate("/learn")}
             className="text-indigo-400 hover:text-indigo-300 text-sm flex items-center gap-1">
-            Sab dekho <ArrowRight size={14}/>
+            View all <ArrowRight size={14}/>
           </button>
         </div>
 
@@ -103,15 +103,15 @@ export default function StudentDashboard() {
           <div className="bg-gray-900 border border-gray-800 rounded-2xl p-10 text-center">
             <Lock size={40} className="text-gray-600 mx-auto mb-3" />
             <p className="text-white font-semibold mb-1">Recommendations Locked</p>
-            <p className="text-gray-400 text-sm mb-4">Aptitude test do — phir personalized content milega</p>
+            <p className="text-gray-400 text-sm mb-4">Complete the aptitude test to receive personalized content</p>
             <button onClick={() => navigate("/test")}
               className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2.5 rounded-xl text-sm transition">
-              Test Shuru Karo
+              Start Test
             </button>
           </div>
         ) : recs.length === 0 ? (
           <p className="text-gray-400 text-center py-10">
-            Sab content complete ho gaya! 🎉 Naye content jald aayenge.
+            You've completed all available content! 🎉 New content is coming soon.
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -139,7 +139,7 @@ export default function StudentDashboard() {
                 </div>
                 {!item.prerequisites_met && (
                   <div className="mt-2 text-xs text-amber-400 flex items-center gap-1">
-                    <Lock size={10}/> Prerequisites baaki hain
+                    <Lock size={10}/> Prerequisites not met
                   </div>
                 )}
               </div>

@@ -16,11 +16,11 @@ export default function Register() {
 
   const validate = () => {
     const e = {};
-    if (!form.name || form.name.length < 2) e.name = "Naam kam se kam 2 characters ka hona chahiye";
-    if (!form.email)    e.email    = "Email zaroori hai";
-    if (!form.password || form.password.length < 8) e.password = "Password minimum 8 characters";
-    if (!/[A-Z]/.test(form.password)) e.password = "Ek uppercase letter zaroori hai";
-    if (!/[0-9]/.test(form.password)) e.password = "Ek digit zaroori hai";
+    if (!form.name || form.name.length < 2) e.name = "Name must be at least 2 characters";
+    if (!form.email)    e.email    = "Email is required";
+    if (!form.password || form.password.length < 8) e.password = "Password must be at least 8 characters";
+    if (!/[A-Z]/.test(form.password)) e.password = "Password must include an uppercase letter";
+    if (!/[0-9]/.test(form.password)) e.password = "Password must include a number";
     setErrors(e);
     return Object.keys(e).length === 0;
   };
@@ -50,8 +50,8 @@ export default function Register() {
             <BookOpen size={32} />
             <span className="text-2xl font-bold text-white">EduPlatform</span>
           </div>
-          <h1 className="text-2xl font-bold text-white">Account Banao</h1>
-          <p className="text-gray-400 text-sm mt-1">Aaj se personalized learning shuru karo</p>
+          <h1 className="text-2xl font-bold text-white">Create Your Account</h1>
+          <p className="text-gray-400 text-sm mt-1">Start personalized learning today</p>
         </div>
 
         <form onSubmit={handleSubmit}
@@ -61,7 +61,7 @@ export default function Register() {
           <div>
             <div className="relative">
               <User size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500" />
-              <input type="text" placeholder="Poora naam"
+              <input type="text" placeholder="Full name"
                 value={form.name}
                 onChange={(e) => setForm({...form, name: e.target.value})}
                 className={`w-full bg-gray-800 border ${errors.name?"border-red-500":"border-gray-700"}
@@ -105,7 +105,7 @@ export default function Register() {
 
           {/* Role */}
           <div>
-            <label className="text-gray-400 text-sm block mb-2">Aap kaun hain?</label>
+            <label className="text-gray-400 text-sm block mb-2">Select your role</label>
             <div className="grid grid-cols-2 gap-3">
               {["student","teacher"].map((r) => (
                 <button key={r} type="button"
@@ -126,12 +126,12 @@ export default function Register() {
                        py-3 rounded-xl transition">
             {loading
               ? <span className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              : <><UserPlus size={18}/> Register Karo</>}
+              : <><UserPlus size={18}/> Register</>}
           </button>
 
           <p className="text-center text-gray-400 text-sm">
-            Already account hai?{" "}
-            <Link to="/login" className="text-indigo-400 hover:underline font-medium">Login karo</Link>
+            Already have an account?{" "}
+            <Link to="/login" className="text-indigo-400 hover:underline font-medium">Login</Link>
           </p>
         </form>
       </div>

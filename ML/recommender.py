@@ -13,29 +13,29 @@ LEARNING_STYLE_RULES: dict = {
         "preferred_types": ["video", "infographic"],
         "secondary_types": ["tutorial", "notes"],
         "tags_boost":      ["visual", "animation", "diagram"],
-        "description":     "Diagrams, animations aur visual content se best seekhte ho tum.",
-        "study_tip":       "Mind maps banao, notes mein colours use karo!",
+        "description":     "You learn best from diagrams, animations and visual content.",
+        "study_tip":       "Create mind maps, use colors in your notes!",
     },
     "conceptual_thinker": {
         "preferred_types": ["article", "video"],
         "secondary_types": ["tutorial", "project"],
         "tags_boost":      ["conceptual", "theory", "case-study", "detailed"],
-        "description":     "Deep theory aur 'why' samajhne pe focus karte ho tum.",
-        "study_tip":       "Pehle poora concept samjho, tab practice karo!",
+        "description":     "You focus on deep theory and understanding the 'why'.",
+        "study_tip":       "First understand the full concept, then practice!",
     },
     "practice_based": {
         "preferred_types": ["exercise", "project"],
         "secondary_types": ["tutorial", "video"],
         "tags_boost":      ["practice", "hands-on", "coding", "build"],
-        "description":     "Kar ke seekhte ho tum — theory baad mein.",
-        "study_tip":       "Pehle problem try karo, phir solution dekho!",
+        "description":     "You learn by doing — theory comes later.",
+        "study_tip":       "First try the problem, then look at the solution!",
     },
     "step_by_step": {
         "preferred_types": ["notes", "tutorial"],
         "secondary_types": ["article", "video"],
         "tags_boost":      ["structured", "step-by-step", "guided", "reference", "memory"],
-        "description":     "Structured, sequential content se best seekhte ho tum.",
-        "study_tip":       "Ek concept complete karo, tab agla shuru karo!",
+        "description":     "You learn best from structured, sequential content.",
+        "study_tip":       "Complete one concept, then start the next!",
     },
 }
 
@@ -58,7 +58,7 @@ class Recommender:
             with open(path, "r", encoding="utf-8") as f:
                 return json.load(f)
         except FileNotFoundError:
-            print(f"Warning: content_metadata.json nahi mili: {path}")
+            print(f"Warning: content_metadata.json not found: {path}")
             return []
         except json.JSONDecodeError as e:
             print(f"Warning: JSON parse error: {e}")

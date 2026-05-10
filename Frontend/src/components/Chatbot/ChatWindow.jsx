@@ -6,7 +6,7 @@ import MessageBubble from "./MessageBubble";
 
 export default function ChatWindow({ lectureContext = "", onClose }) {
   const [messages, setMessages] = useState([
-    { role:"assistant", content:"Namaste! 👋 Main tumhara AI assistant hoon. Is lecture ke baare mein kuch bhi poocho ya summary lene ke liye 'summarize' likho!", timestamp: new Date() }
+    { role:"assistant", content:"Hello! 👋 I'm your AI assistant. Ask about the lecture or type 'summarize' for a quick summary.", timestamp: new Date() }
   ]);
   const [input, setInput]       = useState("");
   const [loading, setLoading]   = useState(false);
@@ -27,20 +27,20 @@ export default function ChatWindow({ lectureContext = "", onClose }) {
     setLoading(true);
 
     try {
-      const isSummary = /summarize|summary|samjhao|kya hai|explain/i.test(userMsg);
+      const isSummary = /summarize|summary|explain/i.test(userMsg);
       const endpoint  = isSummary ? "/chatbot/summarize" : "/chatbot/ask";
       const payload   = isSummary
         ? { lecture_text: lectureContext || userMsg }
         : { question: userMsg, lecture_context: lectureContext };
 
       const res = await api.post(endpoint, payload);
-      const reply = res.data.summary || res.data.answer || "Maafi, samajh nahi aaya.";
+      const reply = res.data.summary || res.data.answer || "Sorry, I didn't understand that.";
 
       setMessages((prev) => [...prev, { role:"assistant", content:reply, timestamp:new Date() }]);
     } catch {
       setMessages((prev) => [...prev, {
         role:"assistant",
-        content:"Oops! Kuch gadbad ho gayi. Dobara try karo.",
+        content:"Oops! Something went wrong. Please try again.",
         timestamp: new Date(),
         isError: true,
       }]);
@@ -49,7 +49,7 @@ export default function ChatWindow({ lectureContext = "", onClose }) {
     }
   };
 
-  const quickActions = ["Summarize karo", "Simple karo", "Examples do"];
+  const quickActions = ["Summarize", "Simplify", "Give examples"];
 
   return (
     <div className={`flex flex-col bg-gray-900 border border-gray-700 rounded-2xl overflow-hidden
@@ -120,7 +120,7 @@ export default function ChatWindow({ lectureContext = "", onClose }) {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && sendMessage()}
-                placeholder="Kuch bhi poocho..."
+                placeholder="Ask anything..."
                 className="flex-1 bg-gray-800 border border-gray-700 text-white rounded-xl
                            px-4 py-2.5 text-sm focus:outline-none focus:border-indigo-500
                            transition placeholder-gray-500"

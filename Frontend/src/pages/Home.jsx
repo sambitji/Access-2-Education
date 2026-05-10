@@ -7,17 +7,17 @@ export default function Home() {
   const { user } = useAuthStore();
 
   const features = [
-    { icon: <Brain size={28} className="text-indigo-400" />,      title: "AI-Powered Clustering",    desc: "Aptitude test ke baad ML model tumhari learning style detect karta hai" },
-    { icon: <BookOpen size={28} className="text-emerald-400" />,  title: "Personalized Content",     desc: "Tumhari style ke hisaab se videos, articles aur exercises recommend hote hain" },
-    { icon: <MessageSquare size={28} className="text-violet-400"/>,title: "AI Chatbot",              desc: "Lecture summary aur doubts ke liye AI chatbot 24/7 available hai" },
-    { icon: <BarChart2 size={28} className="text-amber-400" />,   title: "Progress Tracking",       desc: "Subject-wise progress dekho aur improvement track karo" },
+    { icon: <Brain size={28} className="text-indigo-400" />,      title: "AI-Powered Clustering",    desc: "The ML model identifies your learning style after the aptitude test." },
+    { icon: <BookOpen size={28} className="text-emerald-400" />,  title: "Personalized Content",     desc: "Get tailored videos, articles, and exercises for your style." },
+    { icon: <MessageSquare size={28} className="text-violet-400"/>,title: "AI Chatbot",              desc: "Get lecture summaries and doubt help from the AI chatbot." },
+    { icon: <BarChart2 size={28} className="text-amber-400" />,   title: "Progress Tracking",       desc: "Track subject progress and improvement over time." },
   ];
 
   const steps = [
-    { step: "01", title: "Register karo",        desc: "Account banao — student ya teacher" },
-    { step: "02", title: "Aptitude Test do",      desc: "25 questions — 5 sections — 30 minutes" },
-    { step: "03", title: "Style Pata Karo",       desc: "ML model tumhari learning style detect karega" },
-    { step: "04", title: "Personalized Seekho",   desc: "Tumhare liye specially curated content milega" },
+    { step: "01", title: "Create Account",      desc: "Register as a student or teacher" },
+    { step: "02", title: "Take the Aptitude Test", desc: "25 questions — 5 sections — 30 minutes" },
+    { step: "03", title: "Discover Your Style",  desc: "The ML model identifies your learning preferences" },
+    { step: "04", title: "Learn Smarter",         desc: "Receive content curated just for you" },
   ];
 
   return (
@@ -106,7 +106,7 @@ export default function Home() {
       {/* How it works */}
       <section className="bg-gray-900/50 py-20">
         <div className="max-w-4xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Kaise Kaam Karta Hai?</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">How it works</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {steps.map((s, i) => (
               <div key={i} className="flex gap-4 bg-gray-800/50 border border-gray-700 rounded-2xl p-6">
@@ -124,12 +124,12 @@ export default function Home() {
       {/* CTA */}
       {!user && (
         <section className="py-20 text-center px-6">
-          <h2 className="text-3xl font-bold mb-4">Aaj hi shuru karo!</h2>
-          <p className="text-gray-400 mb-8">Free mein register karo aur apni learning style discover karo</p>
+          <h2 className="text-3xl font-bold mb-4">Get started today!</h2>
+          <p className="text-gray-400 mb-8">Sign up free and discover your learning style</p>
           <Link to="/register"
             className="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700
                        text-white px-10 py-4 rounded-xl font-semibold text-lg transition">
-            Register Karo — Free <ArrowRight size={20} />
+            Register Free <ArrowRight size={20} />
           </Link>
         </section>
       )}

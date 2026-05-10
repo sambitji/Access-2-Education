@@ -19,7 +19,7 @@ try:
     ML_LIBS_AVAILABLE = True
 except ImportError:
     ML_LIBS_AVAILABLE = False
-    print("[predict_cluster] NumPy/SKLearn nahi mile — rule-based fallback use hoga.")
+    print("[predict_cluster] NumPy/SKLearn not found — rule-based fallback will be used.")
 
 from typing import Optional
 
@@ -40,7 +40,7 @@ def _load(filename):
     except (FileNotFoundError, Exception):
         return None
 
-# Load all — None agar file nahi mili
+# Load all — None if file not found
 _CLASSIFIER    = _load('classifier.pkl')
 _SCALER        = _load('scaler.pkl')
 _LABEL_ENCODER = _load('label_encoder.pkl')
@@ -80,7 +80,7 @@ _RULE_BASED_MAP = {
 
 def predict_learning_style(scores: dict) -> tuple[str, float]:
     """
-    Student ke aptitude scores se learning style predict karo.
+    Predict learning style from student's aptitude scores.
 
     Args:
         scores: dict with keys: logical, verbal, numerical, memory, attention
@@ -134,8 +134,8 @@ def predict_learning_style(scores: dict) -> tuple[str, float]:
 
 def predict_cluster_id(scores: dict) -> tuple[int, str]:
     """
-    Cluster ID aur style dono return karo.
-    Backward compatibility ke liye.
+    Return both cluster ID and style.
+    For backward compatibility.
 
     Returns:
         (cluster_id: int, style: str)
@@ -152,14 +152,14 @@ def predict_cluster_id(scores: dict) -> tuple[int, str]:
 
 
 def get_model_info() -> dict:
-    """Current model ki info return karo."""
+    """Return current model info."""
     import json
     info_path = os.path.join(MODELS_PATH, 'model_info.json')
     try:
         with open(info_path) as f:
             return json.load(f)
     except Exception:
-        return {'mode': _mode, 'note': 'model_info.json nahi mila'}
+        return {'mode': _mode, 'note': 'model_info.json not found'}
 
 
 # =============================================================

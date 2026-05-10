@@ -29,7 +29,7 @@ export default function TestPage() {
       const res = await api.get("/test/questions");
       setSections(res.data.sections);
     } catch (err) {
-      const msg = err.response?.data?.detail || "Questions load nahi hue.";
+      const msg = err.response?.data?.detail || "Failed to load questions.";
       setError(msg);
       toast.error(msg);
     } finally {
@@ -43,12 +43,12 @@ export default function TestPage() {
     <div className="min-h-screen bg-gray-950 flex items-center justify-center px-4">
       <div className="text-center">
         <AlertCircle size={48} className="text-red-400 mx-auto mb-4" />
-        <p className="text-white text-lg mb-2">Kuch gadbad ho gayi</p>
+        <p className="text-white text-lg mb-2">Something went wrong</p>
         <p className="text-gray-400 text-sm mb-6">{error}</p>
         <button onClick={fetchQuestions}
           className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white
                      px-6 py-2.5 rounded-xl mx-auto transition">
-          <RefreshCw size={16}/> Dobara try karo
+          <RefreshCw size={16}/> Try again
         </button>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default function TestPage() {
             </div>
             <h1 className="text-2xl font-bold text-white mb-2">Aptitude Test</h1>
             <p className="text-gray-400 text-sm">
-              Is test ke result se ML model tumhari learning style detect karega
+              This test helps the model identify your learning style
             </p>
           </div>
 
@@ -88,11 +88,11 @@ export default function TestPage() {
           <div className="space-y-3 mb-8">
             <h3 className="text-white font-semibold">Instructions:</h3>
             {sections?.[0]?.questions && [
-              "Saare 25 questions attempt karo — 5 alag sections hain",
-              "Har question ke 4 options mein se ek choose karo",
-              "Har sahi answer = 20 marks | Galat = 0 (no negative marking)",
-              "Test beech mein band mat karo — timer chalta rahega",
-              "Submit karne ke baad 30 din tak dobara test nahi de sakte",
+              "Attempt all 25 questions — there are 5 sections in total",
+              "Choose one answer for each question",
+              "Each correct answer is 20 points — no negative marking",
+              "Do not close the test before finishing — the timer will continue",
+              "You cannot retake the test for 30 days after submission",
             ].map((inst, i) => (
               <div key={i} className="flex items-start gap-3 text-sm text-gray-400">
                 <span className="w-5 h-5 bg-indigo-900/50 text-indigo-400 rounded-full
@@ -107,13 +107,13 @@ export default function TestPage() {
           <button onClick={() => setStarted(true)}
             className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold
                        py-3.5 rounded-xl transition text-lg">
-            Test Shuru Karo →
+            Start Test →
           </button>
 
           {user?.learning_style && (
             <button onClick={() => navigate("/test/result")}
               className="w-full mt-3 text-gray-400 hover:text-white text-sm transition">
-              Pehla result dekho
+              View previous result
             </button>
           )}
         </div>

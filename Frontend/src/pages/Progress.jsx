@@ -15,12 +15,12 @@ export default function Progress() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <LoadingSpinner fullScreen message="Progress load ho rahi hai..." />;
-  if (!data)   return <p className="text-center text-gray-400 py-20">Data nahi mila.</p>;
+  if (loading) return <LoadingSpinner fullScreen message="Loading progress..." />;
+  if (!data)   return <p className="text-center text-gray-400 py-20">Data not found.</p>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-10 space-y-8">
-      <h1 className="text-3xl font-bold text-white">📈 Meri Progress</h1>
+      <h1 className="text-3xl font-bold text-white">📈 My Progress</h1>
 
       {/* Overall */}
       <div className="flex items-center gap-8 bg-gray-900 border border-gray-800 rounded-2xl p-8">
@@ -38,7 +38,7 @@ export default function Progress() {
           <h2 className="text-2xl font-bold text-white mb-1">
             {data.total_completed} / {data.total_available}
           </h2>
-          <p className="text-gray-400">Content items complete kiye</p>
+          <p className="text-gray-400">Completed content items</p>
           {data.learning_style && (
             <p className="text-indigo-400 text-sm mt-2 capitalize">
               Style: {data.learning_style.replace(/_/g," ")}

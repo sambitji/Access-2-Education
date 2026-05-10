@@ -129,11 +129,11 @@ class SRReviewHistory(Base):
 
 async def connect_db():
     """MySQL tables create karo."""
-    print("MySQL se connect ho raha hai...")
+    print("Connecting to MySQL...")
     try:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
-        print("MySQL connected aur Tables create ho gaye!")
+        print("MySQL connected and tables created!")
     except Exception as e:
         print(f"CRITICAL ERROR (MySQL): {e}")
 

@@ -72,7 +72,7 @@ export default function LecturePlayer({ content, onComplete, isCompleted }) {
             <a href={content.url} target="_blank" rel="noopener noreferrer"
                className="inline-flex items-center gap-2 mt-4 text-indigo-400 hover:text-indigo-300
                           text-sm border border-indigo-700 px-4 py-2 rounded-xl transition">
-              <FileText size={14}/> Full Content Padho
+              <FileText size={14}/> Read Full Content
             </a>
           )}
         </div>
@@ -98,15 +98,15 @@ export default function LecturePlayer({ content, onComplete, isCompleted }) {
         <button onClick={handleComplete}
           className="w-full flex items-center justify-center gap-2 bg-emerald-600
                      hover:bg-emerald-700 text-white font-semibold py-3.5 rounded-xl transition">
-          <CheckCircle size={18}/> Complete Mark Karo ✓
+          <CheckCircle size={18}/> Mark as Complete
         </button>
       )}
 
       {/* Rating */}
       {showRating && (
         <div className="bg-gray-900 border border-gray-700 rounded-2xl p-6 text-center">
-          <p className="text-white font-semibold mb-1">Ye content kaisa laga?</p>
-          <p className="text-gray-400 text-sm mb-4">Rating do taaki hum better recommend kar sakein</p>
+          <p className="text-white font-semibold mb-1">How did you like this content?</p>
+          <p className="text-gray-400 text-sm mb-4">Rate it so we can recommend better content.</p>
           <div className="flex justify-center gap-2">
             {[1,2,3,4,5].map((s) => (
               <button key={s}

@@ -42,7 +42,7 @@ async def add_card(
     # Check existing
     result = await db.execute(select(SRCard).where(SRCard.user_id == current_user.id, SRCard.concept_id == req.concept_id))
     if result.scalar_one_or_none():
-        raise HTTPException(status_code=409, detail="Card pehle se deck mein hai")
+        raise HTTPException(status_code=409, detail="Card already exists in deck")
 
     card = SRCard(
         user_id=current_user.id,

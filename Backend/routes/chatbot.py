@@ -29,9 +29,9 @@ async def summarize_lecture(payload: dict):
     {lecture_text}
     """
 
-    # Mock fallback agar key missing ho
+    # Mock fallback if key is missing
     if not DEEPSEEK_API_KEY or "YAHAN_APNI" in DEEPSEEK_API_KEY:
-        return {"summary": f"SUMMARY (Demo Mode): Yeh lecture '{student_style}' style mein summarize kiya gaya hai. DeepSeek API key missing hai isliye ye mock response hai.\n\nKey Points:\n1. Basic concepts\n2. Practical examples\n3. Next steps"}
+        return {"summary": f"SUMMARY (Demo Mode): This lecture has been summarized in '{student_style}' style. This is a mock response because DeepSeek API key is missing.\n\nKey Points:\n1. Basic concepts\n2. Practical examples\n3. Next steps"}
 
     try:
         async with httpx.AsyncClient() as client:

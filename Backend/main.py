@@ -29,15 +29,15 @@ from slowapi.errors import RateLimitExceeded
 
 
 # =============================================================
-# Lifespan — Startup aur Shutdown
+# Lifespan — Startup and Shutdown
 # =============================================================
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Server start ho raha hai...")
+    print("Server starting...")
     await connect_db()
     yield
-    print("Server band ho raha hai...")
+    print("Server shutting down...")
     await disconnect_db()
 
 

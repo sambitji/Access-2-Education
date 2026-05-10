@@ -7,51 +7,51 @@ const DEMO_SECTIONS = [
   {
     section_name: "Visual Reasoning",
     questions: [
-      { id: "v1", question: "Aap diagrams aur charts se zyada tezi se kya samajhte hain?", options: ["Images", "Definitions", "Examples", "Steps"] },
-      { id: "v2", question: "Lecture mein aap kaunsa material zyada acche se yaad rakhte hain?", options: ["Diagrams", "Bullet points", "Exercises", "Step-by-step guides"] },
-      { id: "v3", question: "Naya concept samajhne ke liye aap kya pasand karte hain?", options: ["Flowcharts", "Theory", "Practice", "Checklists"] },
-      { id: "v4", question: "Notes banate waqt aap ka style kya hota hai?", options: ["Sketches", "Summary text", "Examples", "Action items"] },
-      { id: "v5", question: "Aapka study space kaisa hota hai?", options: ["Visual boards", "Concept maps", "Practice sheets", "Task lists"] },
+      { id: "v1", question: "What do you understand faster with diagrams and charts?", options: ["Images", "Definitions", "Examples", "Steps"] },
+      { id: "v2", question: "Which material do you remember better from lectures?", options: ["Diagrams", "Bullet points", "Exercises", "Step-by-step guides"] },
+      { id: "v3", question: "What do you prefer to understand new concepts?", options: ["Flowcharts", "Theory", "Practice", "Checklists"] },
+      { id: "v4", question: "What is your style when making notes?", options: ["Sketches", "Summary text", "Examples", "Action items"] },
+      { id: "v5", question: "What is your study space like?", options: ["Visual boards", "Concept maps", "Practice sheets", "Task lists"] },
     ],
   },
   {
     section_name: "Conceptual Thinking",
     questions: [
-      { id: "c1", question: "Naye idea ko samajhne mein aapko kya madad karta hai?", options: ["Videos", "Theory", "Hands-on", "Process"] },
-      { id: "c2", question: "Aap concept explain karte waqt kya pehle bolte hain?", options: ["Picture", "Definition", "Example", "Steps"] },
-      { id: "c3", question: "Problem solve karte waqt aap pehle kya focus karte hain?", options: ["Structure", "Principles", "Practice", "Sequence"] },
-      { id: "c4", question: "Aap feedback lene mein kya prefer karte hain?", options: ["Diagrams", "Logic", "Results", "Checklist"] },
-      { id: "c5", question: "Learning style mein aap kis cheez ko sabse zyada value dete hain?", options: ["Observation", "Understanding", "Doing", "Planning"] },
+      { id: "c1", question: "What helps you understand new ideas?", options: ["Videos", "Theory", "Hands-on", "Process"] },
+      { id: "c2", question: "What do you say first when explaining a concept?", options: ["Picture", "Definition", "Example", "Steps"] },
+      { id: "c3", question: "What do you focus on first when solving problems?", options: ["Structure", "Principles", "Practice", "Sequence"] },
+      { id: "c4", question: "What do you prefer when receiving feedback?", options: ["Diagrams", "Logic", "Results", "Checklist"] },
+      { id: "c5", question: "What do you value most in learning style?", options: ["Observation", "Understanding", "Doing", "Planning"] },
     ],
   },
   {
     section_name: "Practice Focus",
     questions: [
-      { id: "p1", question: "Kisi skill ko master karne ke liye aap kya karte hain?", options: ["Watch examples", "Read explanations", "Solve problems", "Follow instructions"] },
-      { id: "p2", question: "Aap test dene se pehle sabse pehle kya karte hain?", options: ["Visualize answer", "Review concept", "Practice questions", "Prepare checklist"] },
-      { id: "p3", question: "Coding seekhne mein aapko sabse achha kya lagta hai?", options: ["Code diagrams", "Algorithm logic", "Executing code", "Stepwise debugging"] },
-      { id: "p4", question: "Naye tool kaise samajhte hain?", options: ["Tutorial video", "Documentation", "Hands-on session", "Step-by-step guide"] },
-      { id: "p5", question: "Aapki typical study session ka end kaise hota hai?", options: ["Review notes", "Summarize concept", "Build something", "Checklist complete"] },
+      { id: "p1", question: "What do you do to master a skill?", options: ["Watch examples", "Read explanations", "Solve problems", "Follow instructions"] },
+      { id: "p2", question: "What do you do first before taking a test?", options: ["Visualize answer", "Review concept", "Practice questions", "Prepare checklist"] },
+      { id: "p3", question: "What do you find best for learning coding?", options: ["Code diagrams", "Algorithm logic", "Executing code", "Stepwise debugging"] },
+      { id: "p4", question: "How do you understand new tools?", options: ["Tutorial video", "Documentation", "Hands-on session", "Step-by-step guide"] },
+      { id: "p5", question: "How does your typical study session end?", options: ["Review notes", "Summarize concept", "Build something", "Checklist complete"] },
     ],
   },
   {
     section_name: "Step-by-Step",
     questions: [
-      { id: "s1", question: "Aap jab kuch naya seekhte hain, to aap kaise proceed karte hain?", options: ["Visualize patterns", "Understand theory", "Do tasks", "Follow steps"] },
-      { id: "s2", question: "Problem solve karne mein aapko sabse zyada asaan kya lagta hai?", options: ["See the picture", "Understand rule", "Practice examples", "Stepwise process"] },
-      { id: "s3", question: "Aap apna progress kaise track karte hain?", options: ["Graphs", "Concept notes", "Worked examples", "Checklists"] },
-      { id: "s4", question: "Lecture follow karne mein aapko sabse zyada support kya deta hai?", options: ["Visual cues", "Theory notes", "Practice tasks", "Clear steps"] },
-      { id: "s5", question: "Aap revision ke liye kya prefer karte hain?", options: ["Mind maps", "Concept summaries", "Exercises", "Sequential notes"] },
+      { id: "s1", question: "How do you proceed when learning something new?", options: ["Visualize patterns", "Understand theory", "Do tasks", "Follow steps"] },
+      { id: "s2", question: "What do you find easiest in problem solving?", options: ["See the picture", "Understand rule", "Practice examples", "Stepwise process"] },
+      { id: "s3", question: "How do you track your progress?", options: ["Graphs", "Concept notes", "Worked examples", "Checklists"] },
+      { id: "s4", question: "What gives you most support in following lectures?", options: ["Visual cues", "Theory notes", "Practice tasks", "Clear steps"] },
+      { id: "s5", question: "What do you prefer for revision?", options: ["Mind maps", "Concept summaries", "Exercises", "Sequential notes"] },
     ],
   },
   {
     section_name: "Memory & Attention",
     questions: [
-      { id: "m1", question: "Lecture ke baad aapko kya yaad rehta hai?", options: ["Images", "Key ideas", "Examples", "Process steps"] },
-      { id: "m2", question: "Jab aap kisi topic revise karte hain, to aap kya dekhte hain?", options: ["Charts", "Summary notes", "Practice problems", "Action list"] },
-      { id: "m3", question: "Aapka attention sabse zyada kab active rehta hai?", options: ["Visual content", "Concept discussion", "Exercises", "Step-by-step walk-through"] },
-      { id: "m4", question: "Aap concept ko sabse jaldi kaise revise karte hain?", options: ["Visual cues", "Theory points", "Practice examples", "Sequential notes"] },
-      { id: "m5", question: "Aap ek complex topic ko simplify kaise karte hain?", options: ["Diagrams", "Concept map", "Hands-on example", "Stepwise breakdown"] },
+      { id: "m1", question: "What do you remember after a lecture?", options: ["Images", "Key ideas", "Examples", "Process steps"] },
+      { id: "m2", question: "What do you look at when revising a topic?", options: ["Charts", "Summary notes", "Practice problems", "Action list"] },
+      { id: "m3", question: "When is your attention most active?", options: ["Visual content", "Concept discussion", "Exercises", "Step-by-step walk-through"] },
+      { id: "m4", question: "How do you quickly revise a concept?", options: ["Visual cues", "Theory points", "Practice examples", "Sequential notes"] },
+      { id: "m5", question: "How do you simplify a complex topic?", options: ["Diagrams", "Concept map", "Hands-on example", "Stepwise breakdown"] },
     ],
   },
 ];
@@ -60,7 +60,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c1",
     title: "Python Basics: Variables & Data Types",
-    description: "Python ke basic concepts jaise variables, strings aur lists samjho.",
+    description: "Understand basic Python concepts like variables, strings and lists.",
     subject: "Python",
     type: "video",
     duration_min: 12,
@@ -71,7 +71,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c2",
     title: "DSA Fundamentals: Arrays & Loops",
-    description: "Array traversal aur loops ka practice karo step-by-step.",
+    description: "Practice array traversal and loops step-by-step.",
     subject: "DSA",
     type: "exercise",
     duration_min: 25,
@@ -82,7 +82,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c3",
     title: "ML Concepts: Supervised Learning",
-    description: "Supervised learning ke basic concepts aur examples dekho.",
+    description: "See basic concepts and examples of supervised learning.",
     subject: "ML",
     type: "article",
     duration_min: 18,
@@ -93,7 +93,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c4",
     title: "Web Dev: HTML & CSS Introduction",
-    description: "Web page banane ki shuruaat HTML aur CSS ke saath.",
+    description: "Start making web pages with HTML and CSS.",
     subject: "Web Dev",
     type: "tutorial",
     duration_min: 20,
@@ -104,7 +104,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c5",
     title: "Database Basics: SQL Queries",
-    description: "SQL ki simple queries aur database operations practice karo.",
+    description: "Practice simple SQL queries and database operations.",
     subject: "DBMS",
     type: "notes",
     duration_min: 15,
@@ -115,7 +115,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c6",
     title: "Python Project: Build a Quiz App",
-    description: "Ek simple quiz application banane ka practice project.",
+    description: "Practice project to build a simple quiz application.",
     subject: "Python",
     type: "project",
     duration_min: 40,
@@ -126,7 +126,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c7",
     title: "Algorithms: Binary Search",
-    description: "Binary search algorithm ko visualize aur implement karo.",
+    description: "Visualize and implement the binary search algorithm.",
     subject: "DSA",
     type: "video",
     duration_min: 14,
@@ -137,7 +137,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c8",
     title: "ML: Train/Test Split Explained",
-    description: "Machine learning mein data split karne ka reasoning samjho.",
+    description: "Understand the reasoning behind data splitting in machine learning.",
     subject: "ML",
     type: "article",
     duration_min: 16,
@@ -148,7 +148,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c9",
     title: "Web Dev: Responsive Layouts",
-    description: "Web pages ko mobile-friendly kaise banayein.",
+    description: "How to make web pages mobile-friendly.",
     subject: "Web Dev",
     type: "infographic",
     duration_min: 10,
@@ -159,7 +159,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c10",
     title: "DBMS: ER Diagrams Simplified",
-    description: "Entity-relationship diagrams ke basic rules samjho.",
+    description: "Understand basic rules of entity-relationship diagrams.",
     subject: "DBMS",
     type: "notes",
     duration_min: 12,
@@ -170,7 +170,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c11",
     title: "Python: Functions and Modules",
-    description: "Functions likhna aur modules organize karna seekho.",
+    description: "Learn to write functions and organize modules.",
     subject: "Python",
     type: "tutorial",
     duration_min: 22,
@@ -181,7 +181,7 @@ const DEMO_CONTENT = [
   {
     content_id: "c12",
     title: "DSA: Sorting Algorithms Overview",
-    description: "Basic sorting algorithms ko compare karo.",
+    description: "Compare basic sorting algorithms.",
     subject: "DSA",
     type: "article",
     duration_min: 18,
@@ -193,28 +193,28 @@ const DEMO_CONTENT = [
 
 const STYLE_DETAILS = {
   visual_learner: {
-    description: "Aap images, charts, aur diagrams se tezi se seekhte hain.",
+    description: "You learn quickly from images, charts, and diagrams.",
     strengths: ["Quick pattern recognition", "Strong visual memory", "Good at charts"],
     content_types: ["Video", "Infographic", "Diagram-based notes"],
-    study_tip: "Notes ko color-code karo aur flowcharts banao.",
+    study_tip: "Color-code your notes and create flowcharts.",
   },
   conceptual_thinker: {
-    description: "Aap theory aur logic par focus karke concept samajhte ho.",
+    description: "You focus on theory and logic to understand concepts.",
     strengths: ["Strong reasoning", "Abstract understanding", "Good at models"],
     content_types: ["Articles", "Concept notes", "Theory videos"],
-    study_tip: "Har concept ka why/what/when analyze karo.",
+    study_tip: "Analyze why/what/when for each concept.",
   },
   practice_based: {
-    description: "Aap sabse acche se practice aur examples se seekhte ho.",
+    description: "You learn best through practice and examples.",
     strengths: ["Hands-on learning", "Quick application", "Problem solving"],
     content_types: ["Exercises", "Projects", "Interactive tasks"],
-    study_tip: "Har seekhe hue idea ko turant solve karne ki koshish karo.",
+    study_tip: "Try to immediately solve every learned idea.",
   },
   step_by_step: {
-    description: "Aap sequential process se seekhna pasand karte ho.",
+    description: "You prefer learning through sequential processes.",
     strengths: ["Organized approach", "Attention to detail", "Methodical learning"],
     content_types: ["Tutorials", "Checklists", "Step-by-step guides"],
-    study_tip: "Har step ko likho aur agla step tab lo jab pehla clear ho." ,
+    study_tip: "Write down each step and take the next step only when the first is clear.",
   },
 };
 

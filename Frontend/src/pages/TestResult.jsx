@@ -26,7 +26,7 @@ export default function TestResult() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <LoadingSpinner fullScreen message="Result load ho raha hai..." />;
+  if (loading) return <LoadingSpinner fullScreen message="Loading result..." />;
   if (!result)  return null;
 
   const { scores, learning_style, style_details,
@@ -169,14 +169,14 @@ export default function TestResult() {
         <button onClick={() => navigate("/learn")}
           className="flex-1 flex items-center justify-center gap-2 bg-gray-800
                      hover:bg-gray-700 text-white font-semibold py-3.5 rounded-xl transition">
-          Seekhna Shuru Karo <ArrowRight size={18}/>
+          Start Learning <ArrowRight size={18}/>
         </button>
       </div>
 
       {!can_retake && (
         <p className="text-center text-gray-500 text-xs">
           <RefreshCw size={11} className="inline mr-1"/>
-          Dobara test {days_until_retake} din baad de sakte ho
+          You can retake the test in {days_until_retake} days
         </p>
       )}
     </div>

@@ -51,7 +51,7 @@ export default function LearnPage() {
 
     api.get(url)
       .then((r) => { setItems(r.data.content); setTotalPages(r.data.total_pages); })
-      .catch(() => toast.error("Content load nahi hua."))
+      .catch(() => toast.error("Failed to load content."))
       .finally(() => setLoading(false));
   }, [contentId, subject, typeFilter, page]);
 
@@ -64,7 +64,7 @@ export default function LearnPage() {
         setContent(r.data.content);
         setIsCompleted(r.data.my_progress?.completed || false);
       })
-      .catch(() => { toast.error("Content nahi mila."); navigate("/learn"); })
+      .catch(() => { toast.error("Content not found."); navigate("/learn"); })
       .finally(() => setDetailLoading(false));
   }, [contentId]);
 
@@ -85,21 +85,21 @@ export default function LearnPage() {
     try {
       if (extra.rating) {
         await api.post(`/content/rate/${contentId}`, { rating: extra.rating });
-        toast.success("Rating de di! ⭐");
+        toast.success("Rating submitted! ⭐");
       } else {
         await api.post(`/content/complete/${contentId}`, extra);
         setIsCompleted(true);
         setCompletedIds((prev) => [...prev, contentId]);
-        toast.success("Content complete ho gaya! 🎉");
+        toast.success("Content marked complete! 🎉");
       }
     } catch (err) {
-      toast.error(err.response?.data?.detail || "Error aaya.");
+      toast.error(err.response?.data?.detail || "An error occurred.");
     }
   };
 
   // ── DETAIL VIEW ──────────────────────────────────────────────
   if (contentId) {
-    if (detailLoading) return <LoadingSpinner fullScreen message="Content load ho raha hai..." />;
+    if (detailLoading) return <LoadingSpinner fullScreen message="Loading content..." />;
     if (!content)      return null;
 
     return (
@@ -168,7 +168,7 @@ export default function LearnPage() {
         <div className="mb-6 bg-indigo-900/20 border border-indigo-700/40 rounded-2xl px-5 py-3
                         flex items-center justify-between">
           <p className="text-indigo-300 text-sm">
-            🎯 Tumhare liye recommendations dekhne ke liye Dashboard pe jao
+            🎯 See your recommendations on the dashboard
           </p>
           <button onClick={() => navigate("/dashboard")}
             className="text-indigo-400 hover:text-white text-xs border border-indigo-700
@@ -180,10 +180,10 @@ export default function LearnPage() {
 
       {/* Grid */}
       {loading ? (
-        <LoadingSpinner message="Content load ho raha hai..." />
+        <LoadingSpinner message="Loading content..." />
       ) : filtered.length === 0 ? (
         <div className="text-center py-20">
-          <p className="text-gray-400">Koi content nahi mila. Filter change karo.</p>
+          <p className="text-gray-400">No content found. Try changing filters.</p>
         </div>
       ) : (
         <>
@@ -224,7 +224,7 @@ export default function LearnPage() {
               <button onClick={() => setPage((p) => Math.max(1, p-1))} disabled={page===1}
                 className="px-4 py-2 bg-gray-800 text-gray-400 rounded-xl disabled:opacity-30
                            hover:bg-gray-700 transition text-sm">
-                ← Pehla
+                ← Previous
               </button>
               <span className="px-4 py-2 text-gray-400 text-sm">
                 {page} / {totalPages}
@@ -232,7 +232,7 @@ export default function LearnPage() {
               <button onClick={() => setPage((p) => Math.min(totalPages, p+1))} disabled={page===totalPages}
                 className="px-4 py-2 bg-gray-800 text-gray-400 rounded-xl disabled:opacity-30
                            hover:bg-gray-700 transition text-sm">
-                Agla →
+                Next →
               </button>
             </div>
           )}
