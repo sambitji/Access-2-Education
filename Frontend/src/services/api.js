@@ -12,7 +12,7 @@
 import axios from "axios";
 import demoApi from "./demoApi";
 
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const BASE_URL = import.meta.env.VITE_API_URL || "/api";
 const DEMO_MODE = import.meta.env.VITE_DEMO_MODE === "true";
 
 // ── Demo fallback for Netlify / offline deployment ─────────────
