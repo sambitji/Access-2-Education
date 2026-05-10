@@ -13,10 +13,18 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Config
-MYSQL_URL = os.getenv("MYSQL_URL", "mysql+aiomysql://root:@Sambit01@localhost:3306/edu_platform")
+MYSQL_URL = os.getenv("MYSQL_URL", "").strip()
+if MYSQL_URL:
+    DATABASE_URL = MYSQL_URL
+else:
+    tmp_dir = os.getenv("TMPDIR") or os.getenv("TMP") or os.getenv("TEMP") or "/tmp"
+    sqlite_path = os.path.join(tmp_dir, "edu_platform.db")
+    os.makedirs(os.path.dirname(sqlite_path), exist_ok=True)
+    DATABASE_URL = os.getenv("SQLITE_URL", f"sqlite+aiosqlite:///{sqlite_path}")
+    print(f"No MYSQL_URL configured. Falling back to SQLite at: {sqlite_path}")
 
 # SQLAlchemy Setup
-engine = create_async_engine(MYSQL_URL, echo=False)
+engine = create_async_engine(DATABASE_URL, echo=False)
 AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 Base = declarative_base()
 
