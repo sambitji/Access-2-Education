@@ -15,7 +15,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
-from database.db import connect_db, disconnect_db
 from routes.auth    import router as auth_router
 from routes.test    import router as test_router
 from routes.content import router as content_router
@@ -36,12 +35,14 @@ from slowapi.errors import RateLimitExceeded
 async def lifespan(app: FastAPI):
     print("Server starting...")
     try:
+        from database.db import connect_db
         await connect_db()
     except Exception as e:
         print(f"Database connection failed during startup (normal for build): {e}")
     yield
     print("Server shutting down...")
     try:
+        from database.db import disconnect_db
         await disconnect_db()
     except Exception as e:
         print(f"Database disconnect failed: {e}")
