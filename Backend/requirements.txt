@@ -20,7 +20,7 @@ motor==3.4.0                 # Async MongoDB driver
 pymongo==4.7.2               # MongoDB driver (sync, for scripts)
 beanie==1.25.0               # MongoDB ODM (like SQLAlchemy for Mongo)
 SQLAlchemy==2.0.23           # Async SQLAlchemy ORM support (conservative version)
-aiomysql==0.1.1              # Async MySQL driver (stable version)
+aiomysql==0.2.0              # Async MySQL driver (updated stable version)
 aiosqlite==0.19.0            # Async SQLite driver for fallback deployments
 # ── ML Model Loading ─────────────────────────────────────────
 scikit-learn==1.4.2          # Must match ML notebook version

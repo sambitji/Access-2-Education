@@ -17,8 +17,8 @@ MYSQL_URL = os.getenv("MYSQL_URL", "").strip()
 if MYSQL_URL:
     DATABASE_URL = MYSQL_URL
 else:
-    # Use a simple path for Vercel compatibility
-    DATABASE_URL = "sqlite+aiosqlite:///edu_platform.db"
+    # Use file-based SQLite in /tmp for Vercel
+    DATABASE_URL = "sqlite+aiosqlite:///tmp/edu_platform.db"
     print(f"No MYSQL_URL configured. Falling back to SQLite: {DATABASE_URL}")
 
 # SQLAlchemy Setup
